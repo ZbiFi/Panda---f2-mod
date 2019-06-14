@@ -1,0 +1,144 @@
+/*******************************************************************************
+        Name:
+        Location:
+        Description: Object template script
+
+            Created: by sFall Script Editor
+            Updated:
+
+*******************************************************************************/
+
+/* Include Files */
+#include "..\headers\define.h"
+#include "..\headers\command.h"
+#include "..\headers\PANDA.h"
+
+
+/* Standard Script Procedures */
+procedure start;
+procedure description_p_proc;
+procedure look_at_p_proc;
+procedure damage_p_proc;
+procedure use_p_proc;
+procedure use_obj_on_p_proc;
+procedure use_skill_on_p_proc;
+procedure drop_p_proc;
+procedure is_dropping_p_proc;
+procedure pickup_p_proc;
+
+/* Defines */
+
+
+/*****************************************************************
+   Local Variables which are saved.
+   All Local Variables need to be prepended by LVAR_
+*****************************************************************/
+
+
+/*******************************************************************
+   Imported variables from the Map scripts. These should only be
+   pointers and variables that need not be saved. If a variable
+   Needs to be saved, make it a map variable (MVAR_)
+*******************************************************************/
+
+
+/*******************************************************************
+   Local variables which do not need to be saved between map changes.
+*******************************************************************/
+
+
+/*******************************************************************
+*                           PROCEDURES                             *
+*******************************************************************/
+
+procedure start begin
+
+end
+
+procedure look_at_p_proc begin
+   //script_overrides;
+
+end
+
+procedure description_p_proc begin
+   //script_overrides;
+end
+
+procedure damage_p_proc begin
+
+end
+
+procedure use_p_proc begin
+
+
+variable drink_nuka;
+variable drink_beer;
+variable drink_booze;
+variable drink_gamma;
+variable drink_flask;
+variable random_item;
+variable level;
+variable grail_cost;
+variable xp_cost;
+variable number_of_items;
+
+variable drink_flask_2;
+variable pointer;
+
+drink_nuka := create_object (00000106, 0, 0);
+drink_beer := create_object (00000124, 0, 0);
+drink_booze := create_object (00000125, 0, 0);
+drink_gamma := create_object (00000310, 0, 0);
+drink_flask := create_object (00000126, 0, 0);
+
+//display_msg ("TEST grail:" + get_pc_extra_stat(7));
+
+/*if (obj_is_carrying_obj_pid(dude_obj, 00000126)>0) then begin
+   //number_of_items := obj_is_carrying_obj_pid (dude_obj, 00000126);
+   drink_flask := obj_carrying_pid_obj(dude_obj, 00000126);
+   //drink_flask_2 := rm_mult_objs_from_inven(dude_obj, pointer,number_of_items);
+   display_msg("Juz jest" + drink_flask);
+end*/
+
+//display_msg("Poza petla" + drink_flask);
+//if (obj_is_carrying_obj_pid(dude_obj,00000126)) then begin
+   //number_of_items := obj_is_carrying_obj_pid(dude_obj, 00000126);
+//display_msg("Carry" + obj_carrying_pid_obj(dude_obj, 00000126));
+//end
+
+
+//display_msg ("TEST grail:" + drink_flask);
+level := get_pc_stat(1);
+grail_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "grail_cost" + "|" + "number");
+xp_cost := level * grail_cost;
+
+random_item := random (4, 4);
+switch (random_item) begin
+   case 0: begin add_mult_objs_to_inven(dude_obj, drink_nuka, 1); give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 1: begin add_mult_objs_to_inven(dude_obj, drink_beer, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 2: begin add_mult_objs_to_inven(dude_obj, drink_booze, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 3: begin add_mult_objs_to_inven(dude_obj, drink_gamma, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 4: begin add_mult_objs_to_inven(dude_obj, drink_flask, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+end
+//display_msg ("TEST grail2:" + drink_flask + " " + number_of_items);
+end
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!multipleitems not stacking
+procedure use_obj_on_p_proc begin
+
+end
+
+procedure use_skill_on_p_proc begin
+
+end
+
+procedure drop_p_proc begin
+
+end
+
+procedure is_dropping_p_proc begin
+
+end
+
+procedure pickup_p_proc begin
+
+end

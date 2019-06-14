@@ -1,0 +1,176 @@
+/*******************************************************************************
+        Name:
+        Location:
+        Description: Object template script
+
+            Created: by sFall Script Editor
+            Updated:
+
+*******************************************************************************/
+
+/* Include Files */
+#include "..\headers\define.h"
+#include "..\headers\command.h"
+#include "..\headers\PANDA.h"
+
+/* Standard Script Procedures */
+procedure start;
+
+procedure use_p_proc;
+
+
+variable hunger_on;
+variable thirst_on;
+variable stress_on;
+
+variable hunger;
+variable thirst;
+variable stress;
+
+variable hunger_level;
+variable thirst_level;
+variable stress_level;
+
+variable LVar2;
+variable LVar3;
+variable LVar4;
+
+/* Defines */
+
+
+/*****************************************************************
+   Local Variables which are saved.
+   All Local Variables need to be prepended by LVAR_
+*****************************************************************/
+
+
+/*******************************************************************
+   Imported variables from the Map scripts. These should only be
+   pointers and variables that need not be saved. If a variable
+   Needs to be saved, make it a map variable (MVAR_)
+*******************************************************************/
+
+
+/*******************************************************************
+   Local variables which do not need to be saved between map changes.
+*******************************************************************/
+
+
+/*******************************************************************
+*                           PROCEDURES                             *
+*******************************************************************/
+
+procedure start begin
+
+
+end
+
+procedure look_at_p_proc begin
+   //script_overrides;
+
+end
+
+procedure description_p_proc begin
+   //script_overrides;
+
+end
+
+procedure damage_p_proc begin
+
+end
+
+procedure use_p_proc begin
+
+
+hunger := global_var(791);
+thirst := global_var(792);
+stress := global_var(793);
+/*
+hunger := get_pc_extra_stat(106);
+thirst := get_pc_extra_stat(107);
+stress := get_pc_extra_stat(108);
+*/
+//display_msg ("TEST:" + get_pc_extra_stat(7));
+
+hunger_on:= get_ini_setting("f2bin-mod.ini" + "|" + "hunger_on" + "|" + "number");
+thirst_on:= get_ini_setting("f2bin-mod.ini" + "|" + "thirst_on" + "|" + "number");
+stress_on:= get_ini_setting("f2bin-mod.ini" + "|" + "stress_on" + "|" + "number");
+
+//display_msg ("hts " + hunger + " " + thirst + " " + stress);
+//display_msg ("usage" + hunger_on + " " + thirst_on + " " + stress_on);
+//display_msg ("h: " + hunger + " t: " + thirst + " s: " + stress);
+
+   if (hunger_on==1)then begin
+      if ((hunger >= 0) and (hunger < 15)) then begin
+         LVar2 := message_str_game(17, 512);
+         hunger_level := LVar2;
+      end
+      if ((hunger >= 15) and (hunger < 40)) then begin
+         LVar2 := message_str_game(17, 513);
+         hunger_level := LVar2;
+      end
+      if ((hunger >= 40) and (hunger < 61)) then begin
+         LVar2 := message_str_game(17, 514);
+         hunger_level := LVar2;
+      end
+      if ((hunger >= 61) and (hunger < 90)) then begin
+         LVar2 := message_str_game(17, 515);
+         hunger_level := LVar2;
+      end
+      if (hunger >= 90) then begin
+         LVar2 := message_str_game(17, 516);
+         hunger_level := LVar2;
+      end
+   end
+   if (thirst_on==1)then begin
+      if ((thirst >= 0) and (thirst < 15)) then begin
+         LVar3 := message_str_game(17, 506);
+         thirst_level := LVar3;
+      end
+      if ((thirst >= 15) and (thirst < 40)) then begin
+         LVar3 := message_str_game(17, 507);
+         thirst_level := LVar3;
+      end
+      if ((thirst >= 40) and (thirst < 61)) then begin
+         LVar3 := message_str_game(17, 508);
+         thirst_level := LVar3;
+      end
+      if ((thirst >= 61) and (thirst < 90)) then begin
+         LVar3 := message_str_game(17, 509);
+         thirst_level := LVar3;
+      end
+      if (thirst >= 90) then begin
+         LVar3 := message_str_game(17, 510);
+         thirst_level := LVar3;
+      end
+   end
+   if (stress_on==1)then begin
+      if ((stress >= 0) and (stress < 15)) then begin
+         LVar4 := message_str_game(17, 519);
+         stress_level := LVar4;
+      end
+      if ((stress >= 15) and (stress < 40)) then begin
+         LVar4 := message_str_game(17, 520);
+         stress_level := LVar4;
+      end
+      if ((stress >= 40) and (stress < 61)) then begin
+         LVar4 := message_str_game(17, 521);
+         stress_level := LVar4;
+      end
+      if ((stress >= 61) and (stress < 90)) then begin
+         LVar4 := message_str_game(17, 522);
+         stress_level := LVar4;
+      end
+      if (stress >= 90) then begin
+         LVar4 := message_str_game(17, 523);
+         stress_level := LVar4;
+      end
+   end
+
+
+   display_msg("Hunger level: " + hunger_level + "(" + hunger + ")");
+   display_msg("Thirst level: " + thirst_level + "(" + thirst + ")");
+   display_msg("Stress level: " + stress_level +  "(" + stress + ")");
+
+end
+

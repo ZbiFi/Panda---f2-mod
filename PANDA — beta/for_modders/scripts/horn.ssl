@@ -1,0 +1,130 @@
+/*******************************************************************************
+        Name:
+        Location:
+        Description: Object template script
+
+            Created: by sFall Script Editor
+            Updated:
+
+*******************************************************************************/
+
+/* Include Files */
+#include "..\headers\define.h"
+#include "..\headers\command.h"
+#include "..\headers\PANDA.h"
+
+
+/* Standard Script Procedures */
+procedure start;
+procedure description_p_proc;
+procedure look_at_p_proc;
+procedure damage_p_proc;
+procedure use_p_proc;
+procedure use_obj_on_p_proc;
+procedure use_skill_on_p_proc;
+procedure drop_p_proc;
+procedure is_dropping_p_proc;
+procedure pickup_p_proc;
+
+/* Defines */
+
+
+/*****************************************************************
+   Local Variables which are saved.
+   All Local Variables need to be prepended by LVAR_
+*****************************************************************/
+
+
+/*******************************************************************
+   Imported variables from the Map scripts. These should only be
+   pointers and variables that need not be saved. If a variable
+   Needs to be saved, make it a map variable (MVAR_)
+*******************************************************************/
+
+
+/*******************************************************************
+   Local variables which do not need to be saved between map changes.
+*******************************************************************/
+
+
+/*******************************************************************
+*                           PROCEDURES                             *
+*******************************************************************/
+
+procedure start begin
+
+end
+
+procedure look_at_p_proc begin
+   //script_overrides;
+
+end
+
+procedure description_p_proc begin
+   //script_overrides;
+
+end
+
+procedure damage_p_proc begin
+
+end
+
+procedure use_p_proc begin
+
+variable food_fruit;
+variable food_iguana;
+variable food_iguana_2;
+variable food_cookie;
+variable food_jerky;
+variable food_cheesy_poofs;
+variable random_item;
+variable level;
+variable horn_cost;
+variable xp_cost;
+
+//display_msg ("TEST horn:" + get_pc_extra_stat(7));
+
+food_fruit := create_object (00000071, 0, 0);
+food_iguana := create_object (00000081, 0, 0);
+food_iguana_2 := create_object (00000103, 0, 0);
+food_cookie := create_object (00000378, 0, 0);
+food_jerky := create_object (00000284, 0, 0);
+food_cheesy_poofs := create_object (00000295, 0, 0);
+level := get_pc_stat(1);
+horn_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "horn_cost" + "|" + "number");
+xp_cost := level * horn_cost;
+
+random_item := random (0, 5);
+switch (random_item) begin
+   case 0: begin add_mult_objs_to_inven(dude_obj, food_fruit, 1); give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 1: begin add_mult_objs_to_inven(dude_obj, food_iguana, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 2: begin add_mult_objs_to_inven(dude_obj, food_iguana_2, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 3: begin add_mult_objs_to_inven(dude_obj, food_cookie, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 4: begin add_mult_objs_to_inven(dude_obj, food_jerky, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+   case 5: begin add_mult_objs_to_inven(dude_obj, food_cheesy_poofs, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+end
+
+
+
+
+end
+
+procedure use_obj_on_p_proc begin
+
+end
+
+procedure use_skill_on_p_proc begin
+
+end
+
+procedure drop_p_proc begin
+
+end
+
+procedure is_dropping_p_proc begin
+
+end
+
+procedure pickup_p_proc begin
+
+end
