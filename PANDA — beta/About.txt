@@ -1,0 +1,209 @@
+﻿PANDA - PERSONAL ALL NEEDS DATA ANALYZER
+BASIC NEEDS MOD
+
+VERSION 0.9 BETA
+
+- FIXED issue with optional perks through f2bin-mod.ini
+- FIXED overwriting xp rate for using new horn of plenty and grail + option to change difficulty level
+- minor typos fixed
+
+VERSION 0.81 BETA
+
+- Perks are now optional through f2bin-mod.ini file (not tested play at your own responsibility)
+
+Version 0.80 BETA
+This mod adds a ton of stuff so I will sort from most major to minor.
+- The big 3:
+- hunger level
+- thirst level
+- stress level
+- New obligatory perks (connected to stress management)
+- Depression perk (gives you huge penalty for stress reductions and other things)
+- New items: 
+- Horn of plenty (For xp it creates random food item)
+- Holy Grail (For xp it creates random drink item)
+- Panda 3000 (Allows to keep track on hts levels)
+- Changes to food/drink (connected to hunger/thirst management)
+- Changes to original perks (Fast metabolism)
+- Sex rework - gets you xp and stress relief
+- Drugs are now useful as stress relief
+- Leveling up makes you feel good
+- Getting hurt (getting dmg or being crippled gives to additional stress levels)
+- Critical failure as well  Missing an attack gives you stress (you don't want to miss during lethal combat...)
+- Being addicted is bad 
+- Losing Car is bad (wonder why?)
+DETAILS:
+PERKS (obligatory but random from limited pool) - because everyone have a dark side (except Mr Rogers)
+kleptomaniac -> you have to steal from other's
+Tragick TG no life -> you have no life outside the game, get more cards
+Masochist -> you like being hurt
+Sadist -> you like hurting other but not yourself
+Necrophile -> you like grave-digging and looting dead people
+Alcoholic -> booze is you fuel
+Glutton -> eating is good
+Hunger mechanic bonuses/minuses:
+Being Full (0-14):
+- +10% XP rate
+- +1 END
+Being Content (15-39):
+- NOTHING
+Being Slightly Hungry (40-60):
+- -10% XP rate
+- -1 STR
+- -1 END
+Being Hungry (61-89):
+- -25% XP rate
+- -1 STR
+- -1 END
+- -1 INT
+- +5 stress/day
+Starving (90-100):
+- -33% XP rate
+- -2 STR
+- -1 PER
+- -2 END
+- -1 INT
+- -1 LCK
+- +5 stress/day
+Thirst mechanic bonuses:
+Being Saturated (0-14)::
+- +10% XP rate
+- +1 PER
+Being Content (15-39):
+- NOTHING
+Being Slightly Thirsty (40-60):
+- -10% XP rate
+- -1 PER
+- -1 AGI
+Being Thirsty (61-89):
+- -25% XP rate
+- -1 PER
+- -1 AGI
+- -1 LCK
+- +5 stress/day
+Dehydrated (90-100):
+- -33% XP rate
+- -1 STR
+- -2 PER
+- -1 INT
+- -2 AGI
+- -1 LCK
+- +5 stress/day
+Stress mechanic bonuses:
+Being Relaxed (0-14)::
+- +10% XP rate
+- +1 LCK
+Being Content (15-39):
+- NOTHING
+Being Slightly Stressed (40-60):
+- -10% XP rate
+- -1 PER
+- -1 LCK
+Being Stressed (61-89):
+- -25% XP rate
+- -1 PER
+- -1 CHA
+- -1 LCK
+- +5 stress/day
+Depressed (90-100):
+- -33% XP rate
+- -1 STR
+- -1 PER
+- -1 END
+- -1 CHA
+- -1 INT
+- -1 AGI
+- -1 LCK
+- +5 stress/day
+- Gaining Depression Perk
+Natural rates of hts increase:
+Hunger = +1/30 min (in-game) - changeable in ini files
+Thirst = +2/30 min (in-game) - changeable in ini files
+Stress = +5/1 day (in-game) - changeable in ini files
+Hunger Management:
+From food:
+Fruit = -10
+Iguana-on-a-stick = -20
+Iguana-on-a-stick = -20
+Cookie = -10
+Mutated Toe = -5 (It's still eatable...)
+Meat Jerky = -40
+Cheezy Poofs = -15
+Having Fast Metabolism Perk doubles (2x) natural increase of food.
+Thirst Management:
+From food:
+Fruit = -10
+Meat Jerky = +5  (Cause they are salty as duck!)
+Cheezy Poofs = +10 (Cause they are salty as duck!)
+From drinks:
+Roentgen Rum = -15
+Rot Gut = -15
+Nuka Cola = -25
+Beer = -20
+Booze = -15
+Gamma Gulp Beer = -20
+Water Flask = -40
+Wearing Power Armors reduces natural increase of thirst to 0 - It's still-suit, Muad-Dib.
+Stress Management:
+From food:
+Fruit = -5
+Iguana-on-a-stick = -10
+Iguana-on-a-stick = -10
+Cookie = -15
+Mutated Toe = +10  (Try to it your own toe and not feel disturbed!)
+Meat Jerky = -10
+Cheezy Poofs = -10
+From drinks:
+Roentgen Rum = -15
+Rot Gut = -15
+Nuka Cola = -15
+Beer = -15
+Booze = -15
+Gamma Gulp Beer = -15
+Water Flask = -10
+From drugs:
+Mentats = -60
+Buffout = -60
+Psycho = -60
+Jet = -100 (Cause it's Jet baby!)
+Hypo = 60
+Having Sex = -50 (Yes, you can use dolls as well)
+Receiving dmg based on how dmg you are +5/+7/+10 for getting hit for less then 20% of player max hp; between 20% and 40%; over or equal 40%
+Missing attack = +2 stress
+Critical failure = +10
+Being addicted = +5/daily
+Losing Car (once in NR) = +40
+PERKS related
+KLEPTOMANIAC:
+- stealing from children = +10 (you are sick!)
+- stealing from anyone (except kids) = -5 (you feel good)
+- not stealing for 1 week = +20 stress
+TRAGICK_MANIAC
+- not having more cards for > 1 week = +20 stress
+MASOCHIST
+- receive dmg = decreased stress
+- not receiving any dmg for 1 week = +20 stress (you require more punishment!)
+SADIST
+- receive dmg = stress doubles then normal (+10/+15/+20)
+- hurting others => dmg done/5 = - stress
+- not hurting anyone for 1 week = +20 stress
+NECROPHILE
+- looting humans/animals = -5 stress
+- looting graves = -10 stress
+- you didn't touch dead body for > 1 week = +20 stress
+ALCOHOLIC
+- all drinks reduce -20 stress
+- not drinking for >1 day = +5 stress
+GLUTTON
+- reduced decreases of food consumables (around by 1/2) but increase stress reductions from food (around by 2x)
+- not eating for >1 week = +20 stress
+DEPRESSION PERK:
+- You get depression when stress gets to 90
+- Stress reduction reduces by 1/2 (for all items) until healed
+- Natural hunger increase by 2 times
+- Natural thirst increase by 2 times
+- Only Jet heals depression
+ITEMS:
+HORN OF PLENTY => for 5 xp per player level it produces random food item
+HOLY GRAIL => for 5 xp per player level it produces random drink item
+PANDA => allows you to check you hts levels

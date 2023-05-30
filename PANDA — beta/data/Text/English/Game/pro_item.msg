@@ -13,15 +13,15 @@
 {700}{}{Spear}
 {701}{}{A razor tipped polearm. The shaft is wooden, and the tip is worked steel. Min ST: 4.}
 {800}{}{10mm Pistol}
-{801}{}{A Colt 6520 10mm autoloading pistol. Each pull of the trigger will automatically reload the firearm until the cylinder is empty. Single shot only, using the powerful 10mm round. Min ST: 3.}
+{801}{}{A Colt 6520 10mm autoloading pistol. Each pull of the trigger will automatically reload the firearm until the magazine is empty. Single shot only, using the powerful 10mm round. Min ST: 3.}
 {900}{}{10mm SMG}
 {901}{}{H&K MP9 Submachinegun (10mm variant). A medium-sized SMG, capable of single shot and burst mode. Min ST: 4.}
 {1000}{}{Hunting Rifle}
 {1001}{}{A Colt Rangemaster semi-automatic rifle, in .223 caliber. Single-shot only. Min ST: 5.}
 {1100}{}{Flamer}
-{1101}{}{A Flambe 450 model flamethrower, varmiter variation. Fires a short spray of extremely hot, flammable liquid. Requires specialized fuel to work properly. Min ST: 6.}
+{1101}{}{A Flambe 450 model flamethrower, varmiter variation. Fires a short spray of extremely hot, flamable liquid. Requires specialized fuel to work properly. Min ST: 6.}
 {1200}{}{Minigun}
-{1201}{}{A Rockwell CZ53 Personal Minigun. A multi-barreled chaingun firing 5mm ammunition at over 60,000 RPM. Min ST: 7.}
+{1201}{}{A Rockwell CZ53 Personal Minigun. A multi-barrelled chaingun firing 5mm ammunition at over 60,000 RPM. Min ST: 7.}
 {1300}{}{Rocket Launcher}
 {1301}{}{A Rockwell BigBazooka rocket launcher. With the deluxe 3 lb. trigger. Fires AP or Explosive Rockets. Min ST: 6.}
 {1400}{}{Explosive Rocket}
@@ -41,7 +41,7 @@
 {2100}{}{Brass Knuckles}
 {2101}{}{Hardened knuckle grip that is actually made out of steel. They protect your hand, and do more damage, in unarmed combat. Min ST: 1.}
 {2200}{}{14mm Pistol}
-{2201}{}{A Sig-Sauer 14mm Auto Pistol. Large, single shot handgun. Excellent craftsmanship. Min ST: 4.}
+{2201}{}{A Sig-Sauer 14mm Auto Pistol. Large, single shot handgun. Excellent craftmanship. Min ST: 4.}
 {2300}{}{Assault Rifle}
 {2301}{}{An AK-112 5mm Assault Rifle. An old military model, out of use around the time of the war. Can fire single-shot or burst, using the high velocity 5mm rounds. Min ST: 5.}
 {2400}{}{Plasma Pistol}
@@ -99,17 +99,17 @@
 {5000}{}{Reserved Item}
 {5001}{}{This is a reserved item. DO NOT USE.}
 {5100}{}{Dynamite}
-{5101}{}{A high explosive, consisting of nitroglycerin mixed with the absorbent substance kieselguhr. Includes a timer.}
+{5101}{}{A high explosive, consisting of nitroglycerin mixed with the absorbent substance kiselguhr. Includes a timer.}
 {5200}{}{Geiger Counter}
 {5201}{}{A Wattz Electronics C-Radz model Geiger Counter. Detects the presence and strength of radiation fields.}
 {5300}{}{Mentats}
-{5301}{}{A pillbox of mind-altering chems. Increases memory related functions, and speeds other mental processes. Highly addictive.}
+{5301}{}{A pillbox of mind-altering chems. Increases memory related functions, and speeds other mental processes. Highly habit-forming.}
 {5400}{}{Stealth Boy}
 {5401}{}{A RobCo Stealth Boy 3001 personal stealth device. Generates a modulating field that transmits the reflected light from one side of an object to the other.}
 {5500}{}{Water Chip}
 {5501}{}{This is a Vault-Tec water chip. They are typically packaged in groups of five to a box.}
 {5600}{}{Dog Tags}
-{5601}{}{A set of military dog tags. The name Dickinson and the word Enclave are barely readable.}
+{5601}{}{A set of military dog tags. The name Darkwater is readable, but not much else is.}
 {5700}{}{Bug}
 {5701}{}{A miniature microphone and transmitting device.}
 {5800}{}{Tape}
@@ -171,7 +171,7 @@
 {8600}{}{Scout Handbook}
 {8601}{}{A book on the methods and ideals of Scouting. Very practical information regarding outdoor life.}
 {8700}{}{Buffout}
-{8701}{}{Highly advanced steroids. While in effect, they increase strength and reflexes. Very addictive.}
+{8701}{}{Highly advanced steroids. While in effect, they increase strength and reflexes. Very habit-forming.}
 {8800}{}{Watch}
 {8801}{}{An expensive watch. Not really working, but it still looks nice.}
 {8900}{}{Motor}
@@ -223,7 +223,7 @@
 {11200}{}{Urn}
 {11201}{}{A beautiful golden urn, with the name "Harriet" inscribed on the front and ashes inside.}
 {11300}{}{Robes}
-{11301}{}{Worn-looking robes.}
+{11301}{}{Robes from the Children of the Cathedral.}
 {11400}{}{Tangler's Hand}
 {11401}{}{A cybernetic manipulator, in the shape and form of a hand. Damaged due to the sloppy nature of the removal process.}
 {11500}{}{Super Sledge}
@@ -285,7 +285,7 @@
 {14300}{}{Sniper Rifle}
 {14301}{}{A DKS-501 Sniper Rifle. Excellent long range projectile weapon. Originally .308, this one is chambered in the more common .223 caliber. Min ST: 5.}
 {14400}{}{Super Stimpak}
-{14401}{}{An advanced healing chem. Very powerful. Superstims will cause a small amount of damage after a period of time due to the powerful nature of the chemicals used.}
+{14401}{}{An advanced healing chem. Very powerful. Superstims will cause a small amount of damage after a period of time due to powerful nature of the chemicals used.}
 {14500}{}{Bookshelf}
 {14501}{}{A wooden bookshelf.}
 {14600}{}{Bookshelf}
@@ -401,7 +401,7 @@
 {20500}{}{Flare}
 {20501}{}{A flare. Creates light for a short period of time. The paper is a little worn, but otherwise it is in good condition. It is lit.}
 {20600}{}{Dynamite}
-{20601}{}{A high explosive, consisting of nitroglycerin mixed with the absorbent substance kieselguhr. Includes a timer, which is ticking.}
+{20601}{}{A high explosive, consisting of nitroglycerin mixed with the absorbent substance kiselguhr. Includes a timer, which is ticking.}
 {20700}{}{Geiger Counter}
 {20701}{}{A Wattz Electronics C-Radz model Geiger Counter. Detects the presence and strength of radiation fields. It is on.}
 {20800}{}{Motion Sensor}
@@ -445,11 +445,11 @@
 {22800}{}{Technical Manual}
 {22801}{}{A technical repair manual on the T-51b Power Armor.}
 {22900}{}{Small Piece Of Machinery}
-{22901}{}{Some mechanical component for a machine. If a machine is missing one of these, then it's a safe bet it isn't working properly.}
+{22901}{}{You see a Systolic Motivator. This unusual piece of machinery is very small.}
 {23000}{}{Vault Records}
 {23001}{}{A compendium of events and important recordings from a Vault computer system. Possibly damaged.}
 {23100}{}{Military Base Security Code}
-{23101}{}{}
+{23101}{}{ }
 {23200}{}{Hardened Power Armor}
 {23201}{}{A suit of T-51b Power Armor. The hardening process has improved the defensive capability of this high-tech armor system.}
 {23300}{}{Turbo Plasma Rifle}
@@ -495,7 +495,7 @@
 {25300}{}{Fuel Cell Controller}
 {25301}{}{This chip controls the flow of power into a car's electric engines. Many drivers quickly burnt out this chip through frequent rapid acceleration. Still a valuable part to have-- if you only had a car to install it in.}
 {25400}{}{Fuel Cell Regulator}
-{25401}{}{Some car-owners installed this regulator, which doubles your car's mileage between charges, but most drivers didn't care how much juice their cars consumed, after all, power's cheap and plentiful so why worry?}
+{25401}{}{Some car-owners installed this regulator, that doubles your car's mileage between charges, but most drivers didn't care how much juice their cars consumed, after all, power's cheap and plentiful so why worry.}
 {25500}{}{Day Pass}
 {25501}{}{This slightly crumpled piece of paper grants you access to all areas of Vault City, except the Vault itself, during daylight hours only.}
 {25600}{}{False Citizenship Papers}
@@ -505,7 +505,7 @@
 {25800}{}{Hydroelectric Part}
 {25801}{}{This is a Hydroelectric Magnetosphere Regulator.}
 {25900}{}{Jet}
-{25901}{}{Jet is a powerful methamphetamine that stimulates the central nervous system. The initial euphoric rush rarely lasts more than a few minutes, but during that time, the user is filled with a rush of energy & strength.}
+{25901}{}{Jet is a powerful metamphetamine that stimulates the central nervous system. The initial euphoric rush rarely lasts more than a few minutes, but during that time, the user is filled with a rush of energy & strength.}
 {26000}{}{Jet Antidote}
 {26001}{}{This antidote cures the reliant effects of Jet.}
 {26100}{}{Jonny's BB Gun}
@@ -545,7 +545,7 @@
 {27800}{}{Flint}
 {27801}{}{A stone used to sharpen weapons.}
 {27900}{}{Neural Interface}
-{27901}{}{It appears to be a set of electrodes built into a head unit with a standard computer interface plug. It's broken, however.}
+{27901}{}{It appears to be a set of electrodes built into a head unit with a standard computer interface plug.}
 {28000}{}{Sharpened Spear}
 {28001}{}{A razor tipped polearm. The shaft is wooden, and the tip is sharpened steel. Min ST: 4.}
 {28100}{}{Dixon's Eye}
@@ -578,7 +578,7 @@
 {29401}{}{A holodisk which supposedly has the location of Vault 13.}
 {29500}{}{Cheezy Poofs}
 {29501}{}{A box of cheese flavored puffs. They are extremely good.}
-{29600}{}{H&K P90c}
+{29600}{}{HK P90c}
 {29601}{}{The Heckler & Koch P90c was just coming into use at the time of the war. The weapon's bullpup layout, and compact design, make it easy to control. The durable P90c is prized for its reliability, and high firepower in a ruggedly-compact package. Min ST: 4.}
 {29700}{}{Metal Pole}
 {29701}{}{It's a long metal pole. What did you expect?}
@@ -619,13 +619,13 @@
 {31500}{}{Condom (Green package)}
 {31501}{}{This is a Jimmy Hats brand condom, a very reliable brand. This one contains phosphorous green dye #2 and is slathered in spermicidal lubricant for added protection.}
 {31600}{}{Condom (Red Package)}
-{31601}{}{This is a Jimmy Hats brand condom, a very reliable brand. This one contains phosphorous red dye #5 and has a yummy cinnamon bun flavor... or so you heard.}
+{31601}{}{This is a Jimmy Hats brand condom, a very reliable brand. This one contains phosophorous red dye #5 and has a yummy cinnamon bun flavor... or so you heard.}
 {31700}{}{Cosmetics Case}
 {31701}{}{This is a genuine Mary May brand cosmetics case.}
 {31800}{}{Empty Hypodermic}
 {31801}{}{This is an empty hypodermic.}
 {31900}{}{Switchblade}
-{31901}{}{The blade of this small knife is held by a spring. When a button on the handle is pressed, the blade shoots out with a satisfying "Sssssshk" sound. Min ST: 1.}
+{31901}{}{The blade of this small knife is held by a spring. When a button on the handle is pressed, the blades shoots out with a satisfying "Sssssshk" sound. Min ST: 1.}
 {32000}{}{Sharpened Pole}
 {32001}{}{A wood pole sharpened at one end. Min ST: 4.}
 {32100}{}{Cybernetic Brain}
@@ -647,7 +647,7 @@
 {32900}{}{Mutagenic Serum}
 {32901}{}{A strange organic concoction that could possibly reverse the Mutation Factor in humans.}
 {33000}{}{Crashed Verti-Bird}
-{33001}{}{This is wreckage from a verti-bird. Looks like it crashed here months ago.}
+{33001}{}{This is wreakage from a verti-bird. Looks like it crashed here months ago.}
 {33100}{}{Cat's Paw Issue #5}
 {33101}{}{This is the hard to find Issue 5 of Cat's Paw magazine. The pictures aside, this issue has a wonderful article on energy weapons.}
 {33200}{}{M3A1 "Grease Gun" SMG}
@@ -678,7 +678,6 @@
 {34500}{}{Gravesite}
 {34600}{}{Gravesite}
 {34700}{}{Gravesite}
-{34701}{}{}
 {34800}{}{Advanced Power Armor}
 {34801}{}{This powered armor is composed of lightweight metal alloys, reinforced with ceramic castings at key points. The motion-assist servo-motors appear to be high quality models as well.}
 {34900}{}{Adv. Power Armor MKII}
@@ -751,19 +750,19 @@
 {38600}{}{Louisville Slugger}
 {38601}{}{This all-American, hardwood, baseball bat will knock anything right out of the park. Min ST: 4.}
 {38700}{}{M60}
-{38701}{}{This relatively light machine gun was prized by militaries around the world for its high rate of fire. This reliable, battlefield-proven design, was used on vehicles and for squad level fire-support. Min ST: 7.}
+{38701}{}{This relatively light machine gun was prized by militaries around for world for its high rate of fire. This reliable, battlefield-proven design, was used on vehicles and for squad level fire-support. Min ST: 7.}
 {38800}{}{Needler Pistol}
 {38801}{}{You suspect this Bringham needler pistol was once used for scientific field studies. It uses small hard-plastic hypodermic darts as ammo. Min ST: 3.}
 {38900}{}{Avenger Minigun}
 {38901}{}{Rockwell designed the Avenger as the replacement for their aging CZ53 Personal Minigun. The Avenger's design improvements include improved, gel-fin, cooling and chromium plated barrel-bores. This gives it a greater range and lethality. Min ST: 7.}
 {39000}{}{Solar Scorcher}
-{39001}{}{Without the sun's rays to charge this weapon's capacitors this gun can't light a match. However, in full daylight, the experimental photo-electric cells that power the Scorcher allow it to turn almost anything into a crispy critter. Min ST: 3.}
+{39001}{}{Without the sun's rays to charge this weapon's cpacitors this gun can't light a match. However, in full daylight, the experimental photo-electric cells that power the Scorcher allow it to turn almost anything into a crispy critter. Min ST: 3.}
 {39100}{}{H&K G11E}
 {39101}{}{This gun revolutionized squad level support weapon design. The gun fires a caseless cartridge consisting of a block of propellant with a bullet buried inside. The resultant weight and space savings allow it to have a very high magazine capacity. Min ST: 6.}
 {39200}{}{M72 Gauss Rifle}
 {39201}{}{The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled. Min ST: 6.}
 {39300}{}{Phazer}
-{39301}{}{This mysterious high tech weapon appears to have some sort of energy generator inside. If it wasn't damaged, this gun could be the ultimate weapon against any enemy. The backup energy module consists of replaceable small energy cell. Min ST: 3.}
+{39301}{}{NEED LONG DESCRIPTION. Min ST: 3.}
 {39400}{}{PPK12 Gauss Pistol}
 {39401}{}{Praised for its range and stopping power, the PPK12 Gauss Pistol is of German design. The pistol uses an electromagnetic field to propel rounds at tremendous speed and punch through almost any armor. Min ST: 4.}
 {39500}{}{Vindicator Minigun}
@@ -777,7 +776,7 @@
 {39900}{}{Super Cattle Prod}
 {39901}{}{A Farmer's Best Friend model cattle prod from Wattz Electronics. This model has been upgraded to increase the electrical discharge. Min ST: 4.}
 {40000}{}{Improved Flamer}
-{40001}{}{A Flambe 450 model flamethrower, varmiter variation. Fires a short spray of extremely hot, flammable liquid. Requires specialized fuel to work properly. This model has been modified to fire a hotter mixture which causes greater combustibility. Min ST: 6.}
+{40001}{}{A Flambe 450 model flamethrower, varmiter variation. Fires a short spray of extremely hot, flamable liquid. Requires specialized fuel to work properly. This model has been modified to fire a hotter mixture which causes greater combustibility. Min ST: 6.}
 {40100}{}{Laser Rifle (Ext. Cap.)}
 {40101}{}{This Wattz 2000 laser rifle has had its recharging system upgraded and a special recycling chip installed that reduces the drain on the micro fusion cell by 50%. Min ST: 6.}
 {40200}{}{Magneto-Laser Pistol}
@@ -834,7 +833,7 @@
 {42800}{}{Medical Supplies}
 {42801}{}{A box of assorted medical supplies. Nothing I can make use of though.}
 {42900}{}{Gold Tooth}
-{42901}{}{This gold tooth used to belong to someone else, but they won't be needing it anymore.}
+{42901}{}{This gold tooth used to belong to Jules, but it's yours now.}
 {43000}{}{Howitzer Shell}
 {43001}{}{A 75mm Howitzer shell. The casing has mostly corroded away, but you can make out these letters. EXP. 9-25-98.}
 {43100}{}{Ramirez Box, Closed}
@@ -855,7 +854,7 @@
 {43801}{}{A key for the Arroyo Temple door.}
 {43900}{}{Pocket Lint}
 {43901}{}{Some fuzz you found in a pocket.}
-{44000}{}{Biomed Gel}
+{44000}{}{Bio Med Gel}
 {44001}{}{A jar of Bio Gel used in the biomedical field.}
 {44100}{}{Blondie's Dog Tags}
 {44101}{}{These dog tags have the owner's name scratched off and the name "Blondie" scrawled on the back. Beneath the name is the number "11."}
@@ -884,7 +883,7 @@
 {45300}{}{Password Paper}
 {45301}{}{This is three pieces of a single page that, when assembled, reveal three passwords. The text reads: 1. Physics Password KSLJKJ: Ken-Lee-97313, 2. Chemistry Password TIUASPO- Lo-Shi-S12908, 3. Biology Password INTLVR- Dnky-Pnch-98790}
 {45400}{}{Explosive Switch}
-{45401}{}{This toggle switch is the final component of an explosive device.}
+{45401}{}{This toggle switch is the final conponent of an explosive device.}
 {45500}{}{Car Trunk}
 {45501}{}{The trunk is a great place to store your stuff.}
 {45600}{}{Cell Door Key}
@@ -894,7 +893,7 @@
 {45800}{}{M.B. Holodisk 5}
 {45801}{}{The label reads: Message to CHQ- Confidential.}
 {45900}{}{M.B. Holodisk 1}
-{45901}{}{The label reads: Radio transmission log checkpoint 1.}
+{45901}{}{The label reads: Radio Transmission log checkpoint 1.}
 {46000}{}{M.B. Holodisk 2}
 {46001}{}{The label reads: Radio transmission log checkpoint 2.}
 {46100}{}{M.B. Holodisk 3}
@@ -910,14 +909,13 @@
 {46600}{}{Password Paper}
 {46601}{}{A sheet of folded paper with the word "TCHAIKOVSKY" written on it.}
 {46700}{}{Jesse's Container}
-{46701}{}{}
 {46800}{}{Smitty's Meal}
 {46801}{}{It's some kind of salad and a sandwich made out of what you think is Brahmin meat covered in a thick dark yellow sauce. There is also a strange pickled green vegetable on the side.}
 {46900}{}{Rot Gut}
 {46901}{}{A very strong liquor or cleaning fluid, you decide.}
 {47000}{}{Ball Gag}
 {47001}{}{A questionable sexual device. If you need to ask, you don't want to know.}
-{47100}{}{The Lavender Flower}
+{47100}{}{"The Lavender Flower"}
 {47101}{}{It appears to be some kind of romance novel written by Dorothy Rixon. The cover has a woman laying on a bed surrounded by a hundred flowers.}
 {47200}{}{Hubologist Holodisk}
 {47201}{}{This holodisk is labeled "Hubology: The Truth Behind the Lies". It looks like it works with your PIPBoy.}
@@ -972,7 +970,6 @@
 {49900}{}{Pip Boy Lingual Enhancer}
 {49901}{}{This Pip Boy lingual enhancer consists of a storage holodisk, a microfilament cord, headgear, and an optical sensor that is placed over the user's right eye. When used, an optical flash transmits an entire dictionary into the user's memory, permanently improving the user's speech skills.}
 {50000}{}{FN FAL HPFA}
-{50001}{}{This rifle has been more widely used by armed forces than any other rifle in history. It's a reliable assault weapon for any terrain or tactical situation. The HPFA is more powerful than the standard FN FAL. Min ST: 5.}
 {50100}{}{Wall Safe}
 {50200}{}{Floor Safe}
 {50300}{}{Blue Memory Module}
@@ -991,7 +988,6 @@
 {50901}{}{This inflatable rubber sex doll has a torn seam. It's obviously been well used.}
 {51000}{}{Pool Table}
 {51100}{}{Pool Table}
-{51101}{}{}
 {51200}{}{Pool Table}
 {51300}{}{Pool Table}
 {51400}{}{Pool Table}
@@ -1025,138 +1021,12 @@
 {52900}{}{Mining Machine}
 {53000}{}{End Boss Knife}
 {53100}{}{End Boss Plasma Gun}
-{53200}{}{Sam Pritchard's Map}
-{53201}{}{This crudely-drawn map shows the area surrounding New Reno. It looks like there's some sort of military base to the north.}
-{53300}{}{Fire Gecko Pelt}
-{53301}{}{This is the dried and cured hide of a fire gecko. It is badly burned and as a result, has little value.}
-{53400}{}{Bucket}
-{53401}{}{A medium sized bucket used to haul water from a well.}
-{53500}{}{Scaly Fish}
-{53501}{}{A scaly looking fish. If cooked, it would probably make a tasty meal.}
-{53600}{}{Fish}
-{53601}{}{A raw looking fish. If cooked, it would probably make a tasty meal.}
-{53700}{}{Ode to the Flame Deluge}
-{53701}{}{A novel set after a devastating nuclear war. The book excerpt describes how a violent backlash against the culture of advanced knowledge and technology that had led to the development of nuclear weapons took place shortly after this war. Anyone of learning, and eventually anyone who could even read, was likely to be killed.}
-{53800}{}{Text Book}
-{53801}{}{An old text book from before the Great War. It is quite technical and doesn't appear to contain any useful information.}
-{53900}{}{Army Technical Manual}
-{53901}{}{An old technical manual designed for the United States Army Corps of Engineers.}
-{54000}{}{Operations Manual}
-{54001}{}{The operations manual to the KV-75; a portable, tactical cryptographic device. Also used by non-tactical users for high-level communications in the local wideband telephone networks and wideband satellite terminals.}
-{54100}{}{Chinese Army: Special Ops Manual}
-{54101}{}{You can't understand a thing from the text, but the illustrations are quite informative.}
-{54200}{}{Bottle of wine}
-{54201}{}{A fresh bottle of Abbey's finest wine.}
-{54300}{}{Diary}
-{54301}{}{It appears to be a diary which belonged to a young girl. The writing on the inside cover says: "Property of Anna" Most of the pages are either torn or faded, but one is still readable. "Day 271: Today my mother gave me a gold locket. It is the most beautiful thing I have ever owned. I will never part with it."}
-{54400}{}{Botany Holodisk}
-{54401}{}{This information disk categorizes the various plant life that grew before the Great War.}
-{54500}{}{Expired G.E.C.K.}
-{54501}{}{The Garden of Eden Creation Kit. This unit is standard equipment for all Vault-Tec vaults. A GECK is the resource for rebuilding civilization after the bomb. Just add water and stir. This one is well beyond is expiration date. What a waste!}
-{54600}{}{Old Coin}
-{54601}{}{A very old coin. You are not sure whose face is on it, but it looks like it could be rare and worth a lot of money.}
-{54700}{}{A watch}
-{54701}{}{An antique watch. This brand stopped being manufactured long before the Great War.}
-{54800}{}{Pack of Cigarettes}
-{54801}{}{A pack of 'Commies'. On the back it says: 'Smoke a Commie to do your bit for democracy and feel better'. Lower down there's a health warning: 'As your doctor, I recommend Commies for fresher breath and a winning smile'. It looks like there's about 10 in a pack.}
-{54900}{}{Gas Mask}
-{54901}{}{The Protective Mask: Your mask is your first line of defense against biological agents. Take care of it.}
-{55000}{}{Toaster}
-{55001}{}{A silver toaster sitting on a desk.}
-{55100}{}{Syringe}
-{55101}{}{A pre war implement for administrating drugs. It is full of an unknown substance.}
-{55200}{}{Dog Food}
-{55201}{}{Several cans of dog food.}
-{55300}{}{Bug Spray}
-{55301}{}{A spray can full of a substance that kills all known bugs.}
-{55400}{}{Environmental Armor}
-{55401}{}{Armor best worn against biological attacks.}
-{55500}{}{EPA Pamphlet}
-{55501}{}{A leaflet given out at the beginning of tours.}
-{55600}{}{Drugs}
-{55601}{}{Some sort of drugs preserved from before the war.}
-{55700}{}{Security Rooms Key Card}
-{55701}{}{A key card to unlock the security rooms.}
-{55800}{}{Test tube rack}
-{55801}{}{A rack for holding chemical test tubes.}
-{55900}{}{Keys}
-{55901}{}{Keys to allow access to the storage shed on the surface.}
-{56000}{}{Random Chemicals}
-{56001}{}{DANGER! Unknown chemicals. Use with caution.}
-{56100}{}{Corn Seeds}
-{56101}{}{Packets of seeds, used to grow plants. These are labeled as genetically modified corn seeds immune to both disease and insect infestation.}
-{56200}{}{Plant Spray}
-{56201}{}{A spray can full of a substance that kills various types of plants.}
-{56300}{}{Trigger activated dynamite}
-{56301}{}{Unlike normal dynamite which is set by a timer, this dynamite is activated by a trigger.}
-{56400}{}{Trigger switch}
-{56401}{}{Trigger for dynamite.}
-{56500}{}{Paper}
-{56501}{}{Paper with a passcode scribbled on it.}
-{56600}{}{Experimental Seeds}
-{56601}{}{Packet of experimental seeds. Result of germination is unknown.}
-{56700}{}{A drill}
-{56701}{}{An electric powered drill.}
-{56800}{}{Trigger activated dynamite}
-{56801}{}{Unlike normal dynamite which is set by a timer, this dynamite is activated by a trigger. This one is armed and ready to be triggered.}
-{56900}{}{Pop Rocks}
-{56901}{}{An unopened bag of a tasty carbonated candy made of sugar, lactose (more sugar), corn syrup (even more sugar), and flavoring. It is rumored that when mixed with drinks like Nuka Cola one's stomach would explode.}
-{57000}{}{Bottle of Shampoo}
-{57001}{}{A premium bottle of shampoo. Unlike other leading brands, this shampoo comes in an unusual flexi-plastic bottle. It was specially designed this way, so when the bottle was squeezed, the right amount of shampoo was poured out - no more, no less. Just a flip of the cap, and you're on your way.}
-{57100}{}{K-9 Kevlar}
-{57101}{}{A dusty old set of sturdy kevlar plates set into black nylon sleeves. You think it must be sized for a dwarf, until you notice a tag on the inside which reads: Canine Kevlar. Large. A DoggieBuddy product. Made in Taiwan.}
-{57200}{}{Human Ear}
-{57201}{}{A woman's ear. Gross! Only a mentally unstable person would ever remove a human ear.}
-{57300}{}{ERSI canister}
-{57301}{}{A canister of Environmental Rejection Syndrome Inhibitors. Applied to specimens exiting from an extended period of hibernation.}
-{57400}{}{Lightsaber}
-{57401}{}{An ancient weapon from a more civilized age. Not as clumsy or as random as a blaster. It was given to you by Obi-Wan-Killap. Min ST: 2}
-{57500}{}{Blaster}
-{57501}{}{Hokey religions and ancient weapons are no match for a good blaster at your side, kid. Min ST: 3}
-{57600}{}{Lightsaber}
-{57601}{}{An ancient weapon from a more civilized age. Not as clumsy or as random as a blaster. It was given to you by Empress Timeslip. Min ST: 2.}
-{57700}{}{Air Processing Vent}
-{57701}{}{The grill on this vent looks different.}
-{57800}{}{Metal Locker}
-{57801}{}{A storage container.}
-{57900}{}{Metal Locker}
-{57901}{}{A storage container.}
-{58000}{}{Chinese Code Chart}
-{58001}{}{You're not certain, but it appears to be a chart containing various Chinese command codes. Perhaps if you found a place to input these codes, you could learn a thing or two.}
-{58100}{}{Dead Tribal}
-{58101}{}{This person has died a horrible death on the medical table.}
-{58200}{}{Dead Tribal}
-{58201}{}{This person has died a horrible death on the medical table.}
-{58300}{}{Plant Spike}
-{58301}{}{An organic seed-spike that the carnivorous plants spit at potential food or seed carriers. This one is sharper, and harder than usual.}
-{58400}{}{Dead Vault Dweller}
-{58401}{}{This person has died a horrible death on the medical table.}
-{58500}{}{Dead Vault Dweller}
-{58501}{}{This person has died a horrible death on the medical table.}
-{58600}{}{Dead Tribal}
-{58601}{}{This person has died a horrible death on the medical table.}
-{58700}{}{Dead Tribal}
-{58701}{}{This person has died a horrible death on the medical table.}
-{58800}{}{K-9 Kevlar}
-{58801}{}{Wearable K-9 Kevlar (FAKE)}
-{58900}{}{Mutant Armor}
-{58901}{}{Mutant Armor}
-{59000}{}{Mutant Armor}
-{59001}{}{Wearable Mutant Armor (FAKE)}
-{59100}{}{Small Scorpion Tail}
-{59101}{}{The severed tail of a small radscorpion.}
-{59200}{}{Plant seed}
-{59201}{}{A plant seed given to you by Dr. Sheng.}
-{59300}{}{Nothing out of the ordinary}
-{59301}{}{Nothing out of the ordinary.}
-{59400}{}{Nothing out of the ordinary}
-{59401}{}{Nothing out of the ordinary.}
-{59500}{}{Nothing out of the ordinary}
-{59501}{}{Nothing out of the ordinary.}
-{59600}{}{Fake Heart Pills}
-{59601}{}{These pills would normally be used by people with heart problems, except in this case death would ensue. These pills have been mixed with other chemicals, resulting in a guaranteed heart-exploding experience.}
-{59700}{}{Pip Boy's PANDA}
-{59701}{}{Pip Boy's Personal All Need's Data Analyzer 3000. We WILL tell you when you need to eat, drink or relax. Your life is in your hands.}
+{53200}{}{Pip Boy's PANDA}
+{53201}{}{Pip Boy's Personal All Need's Data Analyzer 3000. We WILL tell you when you need to eat, drink or relax. Your life is in your hands.}
+{53300}{}{Horn of Plenty}
+{53301}{}{You found mystical Horn of Plenty. From manual: it should refill your stomach. But mystic loot is never free...}
+{53400}{}{Holy Grail}
+{53401}{}{You feel sacred power radiating from it. You somehow know it will saturate your body and resfresh spirit. But Godly Grail will tap into your soul...}
 {59800}{}{Horn of Plenty}
 {59801}{}{You found mystical Horn of Plenty. From manual: it should refill your stomach. But mystic loot is never free...}
 {59900}{}{Holy Grail}

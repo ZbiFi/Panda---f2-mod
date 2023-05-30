@@ -9,8 +9,8 @@
 *******************************************************************************/
 
 /* Include Files */
-#include "..\headers\define.h"
-#include "..\headers\command.h"
+#include "..\header\define.h"
+#include "..\header\command.h"
 #include "..\headers\PANDA.h"
 
 
@@ -81,6 +81,7 @@ variable random_item;
 variable level;
 variable horn_cost;
 variable xp_cost;
+variable exp_points;
 
 //display_msg ("TEST horn:" + get_pc_extra_stat(7));
 
@@ -88,22 +89,31 @@ food_fruit := create_object (00000071, 0, 0);
 food_iguana := create_object (00000081, 0, 0);
 food_iguana_2 := create_object (00000103, 0, 0);
 food_cookie := create_object (00000378, 0, 0);
-food_jerky := create_object (00000284, 0, 0);
-food_cheesy_poofs := create_object (00000295, 0, 0);
-level := get_pc_stat(1);
-horn_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "horn_cost" + "|" + "number");
-xp_cost := level * horn_cost;
 
-random_item := random (0, 5);
-switch (random_item) begin
-   case 0: begin add_mult_objs_to_inven(dude_obj, food_fruit, 1); give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 1: begin add_mult_objs_to_inven(dude_obj, food_iguana, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 2: begin add_mult_objs_to_inven(dude_obj, food_iguana_2, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 3: begin add_mult_objs_to_inven(dude_obj, food_cookie, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 4: begin add_mult_objs_to_inven(dude_obj, food_jerky, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 5: begin add_mult_objs_to_inven(dude_obj, food_cheesy_poofs, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+level := get_pc_stat(1);
+exp_points := get_pc_stat(2);
+horn_cost := 0;
+switch (difficulty_level) begin
+   case 0: begin horn_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "horn_cost_easy" + "|" + "number"); end
+   case 1: begin horn_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "horn_cost_medium" + "|" + "number"); end
+   case 2: begin horn_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "horn_cost_hard" + "|" + "number"); end
 end
 
+
+xp_cost := level * horn_cost;
+
+if (exp_points > 0) then begin
+   random_item := random (0, 3);
+   switch (random_item) begin
+      case 0: begin add_mult_objs_to_inven(dude_obj, food_fruit, 1); give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+      case 1: begin add_mult_objs_to_inven(dude_obj, food_iguana, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+      case 2: begin add_mult_objs_to_inven(dude_obj, food_iguana_2, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+      case 3: begin add_mult_objs_to_inven(dude_obj, food_cookie, 1);give_exp_points(-xp_cost); display_msg ("Horn of Plenty tapped into your souls. - You lost " + xp_cost + " xp."); end
+   end
+end
+else begin
+   display_msg ("Horn of Plenty require more xp to perform this action.");
+end
 
 
 

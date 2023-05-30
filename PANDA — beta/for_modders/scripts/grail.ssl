@@ -9,8 +9,8 @@
 *******************************************************************************/
 
 /* Include Files */
-#include "..\headers\define.h"
-#include "..\headers\command.h"
+#include "..\header\define.h"
+#include "..\header\command.h"
 #include "..\headers\PANDA.h"
 
 
@@ -80,16 +80,17 @@ variable random_item;
 variable level;
 variable grail_cost;
 variable xp_cost;
+variable exp_points;
 variable number_of_items;
 
 variable drink_flask_2;
 variable pointer;
 
+
 drink_nuka := create_object (00000106, 0, 0);
 drink_beer := create_object (00000124, 0, 0);
 drink_booze := create_object (00000125, 0, 0);
 drink_gamma := create_object (00000310, 0, 0);
-drink_flask := create_object (00000126, 0, 0);
 
 //display_msg ("TEST grail:" + get_pc_extra_stat(7));
 
@@ -109,16 +110,27 @@ end*/
 
 //display_msg ("TEST grail:" + drink_flask);
 level := get_pc_stat(1);
-grail_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "grail_cost" + "|" + "number");
+exp_points := get_pc_stat(2);
+grail_cost := 0;
+switch (difficulty_level) begin
+   case 0: begin grail_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "grail_cost_easy" + "|" + "number"); end
+   case 1: begin grail_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "grail_cost_medium" + "|" + "number"); end
+   case 2: begin grail_cost:= get_ini_setting("f2bin-mod.ini" + "|" + "grail_cost_hard" + "|" + "number"); end
+end
+
 xp_cost := level * grail_cost;
 
-random_item := random (4, 4);
-switch (random_item) begin
-   case 0: begin add_mult_objs_to_inven(dude_obj, drink_nuka, 1); give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 1: begin add_mult_objs_to_inven(dude_obj, drink_beer, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 2: begin add_mult_objs_to_inven(dude_obj, drink_booze, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 3: begin add_mult_objs_to_inven(dude_obj, drink_gamma, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
-   case 4: begin add_mult_objs_to_inven(dude_obj, drink_flask, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+if (exp_points > 0) then begin
+   random_item := random (0, 3);
+   switch (random_item) begin
+      case 0: begin add_mult_objs_to_inven(dude_obj, drink_nuka, 1); give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+      case 1: begin add_mult_objs_to_inven(dude_obj, drink_beer, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+      case 2: begin add_mult_objs_to_inven(dude_obj, drink_booze, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+      case 3: begin add_mult_objs_to_inven(dude_obj, drink_gamma, 1);give_exp_points(-xp_cost); display_msg ("Holy Grail tapped into your souls. - You lost " + xp_cost + " xp."); end
+   end
+end
+else begin
+   display_msg ("Holy Grail require more xp to perform this action.");
 end
 //display_msg ("TEST grail2:" + drink_flask + " " + number_of_items);
 end

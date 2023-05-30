@@ -1,24 +1,13 @@
-#include "../HEADERS/DEFINE.H"
-#include "../HEADERS/DEFINE_extra.H"
-#include "../HEADERS/command.H"
-#include "../HEADERS/den.H"
-#include "../HEADERS/PANDA.H"
-#include "../HEADERS/sfall.H"
-#include "../HEADERS/global.H"
+variable restock_obj;
 
-
-
-procedure hotkey_pressed_now(variable arg0, variable arg1);
 procedure combat_control;
 procedure hit_control;
 procedure remove_inv_obj;
-procedure keep_hts_in_range (variable arg0);
+procedure keep_hts_in_range(variable arg0);
 procedure decrease_hunger(variable arg0);
 procedure decrease_thirst(variable arg0);
 procedure decrease_stress(variable arg0);
 
-variable box_num;
-variable box_color;
 variable box_num_hunger;
 variable box_color_hunger;
 variable box_num_thirst;
@@ -30,10 +19,10 @@ variable new_game_mode;
 variable special_perk_timer;
 variable special_perk_stress_value;
 variable special_perk_timer_load;
-variable special_perk_have_logic;
 variable thirst_on;
 variable hunger_on;
 variable stress_on;
+variable perks_switch;
 variable hunger_increase_time;
 variable thirst_increase_time;
 variable stress_increase_time;
@@ -52,9 +41,6 @@ variable incstresstime_OV;
 variable hunger_on_OV;
 variable thirst_on_OV;
 variable stress_on_OV;
-variable hunger_increase_time_OV;
-variable thirst_increase_time_OV;
-variable stress_increase_time_OV;
 variable hunger_increase_mod_OV;
 variable thirst_increase_mod_OV;
 variable stress_increase_mod_OV;
@@ -84,13 +70,6 @@ variable load_stat_cha;
 variable load_stat_int;
 variable load_stat_agi;
 variable load_stat_lck;
-variable LVar8 := 0;    //str
-variable LVar9 := 0;    //per
-variable LVar10 := 0;   //end
-variable LVar11 := 0;   //char
-variable LVar12 := 0;  //int
-variable LVar13 := 0; //agility
-variable LVar14 := 0; //luck
 variable BIGMODNUMBER1;
 variable BIGMODNUMBER1DIV;
 variable BIGMODNUMBER2;
@@ -119,45 +98,11 @@ variable BIGMODNUMBER6MARKER;
 variable BIGMODNUMBER6DIVMARKER;
 variable BIGMODNUMBER7MARKER;
 variable BIGMODNUMBER7DIVMARKER;
-variable critter;
 variable hunger_saved;
 variable thirst_saved;
 variable stress_saved;
 
-#define KLEPTOMANIAC    "Kleptomaniac"
-#define KLEPTOMANIAC_DESC     "Your hands are very sticky. You feel relief when liberating possesions from others."
-#define PIROMANIAC      "Piromaniac"
-#define PIROMANIAC_DESC       "You love set things on fire. Nothing makes your day more then making it burn."
-#define GAMBLER         "Gambler"
-#define GAMBLER_DESC          "Thrill of winning is you breathing air. You need it as IT needs you."
-#define TRAGICK_MANIAC  "Tragic Maniac"
-#define TRAGICK_MANIAC_DESC   "The most tragic things in this world is that Tragick is more limited than ever. You need to catch'em all."
-#define CHILD_MOLESTER  "Child Molester"
-#define CHILD_MOLESTER_DESC   "You can't resist touching them... and don't want to stop."
-#define MASOCHIST       "Masochist"
-#define MASOCHIST_DESC        "Pain is your fuel. You feel great relief everytime. You want more of it."
-#define SADIST          "Sadist"
-#define SADIST_DESC           "Everyone must suffer, that's the only truth. You can't suffer opposite."
-#define NECROPHILE      "Necrophile"
-#define NECROPHILE_DESC       "You like them, while there are cold. However fresh bodies are still good substitute."
-#define ZOOPHILE        "Zoophile"
-#define ZOOPHILE_DESC         "If it barks, it counts. You know that animals are better then humans in every case."
-#define PACIFIST        "Pacifist"
-#define PACIFIST_DESC         "Violence is never the answer. It's just barbaric in nature. Hurting others hurt your soul. Helping on the other hand, helps."
-#define JERK            "Jerk"
-#define JERK_DESC             "Being a jerk is your path in life. It's not choice, it's privilege."
-#define ALCOHOLIC       "Alcoholic"
-#define ALCOHOLIC_DESC        "Pull of the Firewater is strong within you. You feel like you could live only on liqueur and booze. Without it, you are losing part of yourself."
-#define PSYCHOPATH      "Psychopath"
-#define PSYCHOPATH_DESC        "The more you kill the more you feel alive. Blood for the blood God. God, you called Knorne, requires sacrifice or he will take your sanity to Warp."
-#define DEPRESSION      "Depression"
-#define DEPRESSION_DESC       "You don't feel like living. Life is hell and yet you are there. There are many ways there but is there any healing? You don't know, and frankly you don't care."
-#define GLUTTON         "Glutton"
-#define GLUTTON_DESC       "You don't eat. You devour. You stomach is always empty but it's only way to make to relax."
-
-
 procedure start;
-//procedure use_obj_on_p_proc;
 procedure update_box(variable arg0);
 procedure gamemode_hook;
 procedure keypress_hook;
@@ -168,114 +113,61 @@ procedure increaste_thirst;
 procedure increaste_stress;
 procedure set_hts;
 procedure obj_used;
-procedure show_hts_levels;
 procedure set_xp_modifier(variable arg0, variable arg1, variable arg2);
 procedure set_stat_modifier(variable arg0, variable arg1, variable arg2, variable arg3, variable arg4, variable arg5, variable arg6);
 
-procedure set_hts()begin
-  /*set_pc_extra_stat(106, hunger);
-  set_pc_extra_stat(107, thirst);
-  set_pc_extra_stat(108, stress);
-  */
-  set_global_var(791,hunger);
-  set_global_var(792,thirst);
-  set_global_var(793,stress);
-
-end
-
-procedure hotkey_pressed_now(variable arg0, variable arg1) begin
-   variable LVar2 := 0;
-   variable LVar3 := 0;
-   if (arg0 < 65536) then begin
-      return arg1 == arg0;
-   end
-   else begin
-      LVar2 := arg0 bwand 65535;
-      LVar3 := (arg0 bwand -65536) / 65536;
-      if (LVar2 == arg1) then begin
-         if (key_pressed(LVar3)) then begin
-            return 1;
-         end
-      end
-      else begin
-         if (LVar3 == arg1) then begin
-            if (key_pressed(LVar2)) then begin
-               return 1;
-            end
-         end
-      end
-      return 0;
-   end
-end
 
 procedure combat_control begin
    variable LVar0 := 0;
    variable LVar1 := 0;
    variable LVar2 := 0;
    variable LVar3 := 0;
-
-   /*display_msg("VIC status: " + (get_critter_stat(party_member_obj(PID_VIC),35)) + " " + party_member_obj(PID_VIC));
-   display_msg("MARCUS status: " + (get_critter_stat(party_member_obj(PID_MARCUS),35))+ " " + party_member_obj(PID_MARCUS));
-   display_msg("SULIK status: " + (get_critter_stat(party_member_obj(PID_SULIK),35))+ " " + party_member_obj(PID_SULIK));
-*/
    LVar0 := get_sfall_arg;
    LVar1 := get_sfall_arg;
    LVar2 := get_sfall_arg;
    if (obj_name(LVar0) == obj_name(dude_obj)) then begin
-      if(has_fake_perk(MASOCHIST)) then begin
-            call decrease_stress (LVar2);
-            special_perk_timer_load := game_time;
-         end
+      if (has_fake_perk("Masochist")) then begin
+         call decrease_stress(LVar2);
+         special_perk_timer_load := game_time;
+      end
       else begin
          if ((LVar2 / get_critter_stat(dude_obj, 7) * 100) < 20) then begin
-            if (has_fake_perk(SADIST)) then begin
-               stress += 10;
+            if (has_fake_perk("Sadist")) then begin
+               stress := stress + 10;
                special_perk_timer_load := game_time;
             end
             else begin
                stress := stress + 5;
             end
-
-        end
+         end
          if (((LVar2 / get_critter_stat(dude_obj, 7) * 100) >= 20) and ((LVar2 / get_critter_stat(dude_obj, 7) * 100) < 40)) then begin
-            if (has_fake_perk(SADIST)) then begin
-               stress += 20;
+            if (has_fake_perk("Sadist")) then begin
+               stress := stress + 15;
+               special_perk_timer_load := game_time;
+            end
+            else begin
+               stress := stress + 7;
+            end
+         end
+         if ((LVar2 / get_critter_stat(dude_obj, 7) * 100) >= 40) then begin
+            if (has_fake_perk("Sadist")) then begin
+               stress := stress + 20;
                special_perk_timer_load := game_time;
             end
             else begin
                stress := stress + 10;
-
-            end
-         end
-         if ((LVar2 / get_critter_stat(dude_obj, 7) * 100) >= 40) then begin
-            if (has_fake_perk(SADIST)) then begin
-               stress += 50;
-               special_perk_timer_load := game_time;
-            end
-            else begin
-               stress := stress + 25;
             end
          end
       end
    end
    if (obj_name(LVar0) != obj_name(dude_obj)) then begin
-      if (has_fake_perk(SADIST)) then begin
-            display_msg("Minus stress: " + LVar2 / 5);
-            call decrease_stress (Lvar2/5);
-            special_perk_timer_load := game_time;
-         end
+      if (has_fake_perk("Sadist")) then begin
+         display_msg("Minus stress: " + (LVar2 / 5));
+         call decrease_stress(LVar2 / 5);
+         special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(ZOOPHILE) and obj_name(LVar1)==obj_name(dude_obj) and (obj_art_fid(LVar0)==16777232 or obj_art_fid(LVar0)==16777231 or
-      obj_art_fid(LVar0)==16777240 or obj_art_fid(LVar0)==16777268 or obj_art_fid(LVar0)==16777238 or obj_art_fid(LVar0)==16777275 or obj_art_fid(LVar0)==16777283 or obj_art_fid(LVar0)==16777284 or
-      obj_art_fid(LVar0)==16777235 or obj_art_fid(LVar0)==16777271 or obj_art_fid(LVar0)==16777231 or obj_art_fid(LVar0)==16777297 or obj_art_fid(LVar0)==16777313)) then begin
-            //display_msg("Minus stress: " + LVar2 / 5);
-            call decrease_stress (Lvar2/5);
-            special_perk_timer_load := game_time;
-            display_msg("Even not directly interacting with fauna makes you feel a bit better");
-         end
-   //display_msg("combat: " + hunger + " " + thirst + " " + stress);
+   end
    call set_hts();
-
 end
 
 procedure hit_control begin
@@ -291,12 +183,26 @@ procedure hit_control begin
    if (LVar0 == 1) then begin
       stress := stress + 2;
    end
-   //display_msg("hit control:" + hunger + " " + thirst + " " + stress);
    call set_hts();
 end
 
-procedure keep_hts_in_range (variable arg0) begin
-   if (arg0<0) then begin
+procedure remove_inv_obj begin
+   variable LVar0 := 0;
+   variable LVar1 := 0;
+   LVar0 := get_sfall_arg;
+   LVar1 := get_sfall_arg;
+   if ((LVar0 != dude_obj) and (critter_state(LVar0) == 1) and has_fake_perk("Necrophile") and ((metarule(51, LVar0) == 0) or (metarule(51, LVar0) == 1) or (metarule(51, LVar0) == 2))) then begin
+      display_msg("Still warm skin of your victims reduces your stress!");
+      call decrease_stress(5);
+   end
+   if ((LVar0 != dude_obj) and (critter_state(LVar0) == 1) and has_fake_perk("Necrophile") and ((obj_art_fid(LVar0) == 16777344) or (obj_art_fid(LVar0) == 16777345) or (obj_art_fid(LVar0) == 16777346) or (obj_art_fid(LVar0) == 16777347) or (obj_art_fid(LVar0) == 16777374) or (obj_art_fid(LVar0) == 16777375) or (obj_art_fid(LVar0) == 16777376))) then begin
+      display_msg("Bones of recently deceased puts you, right into good mood!");
+      call decrease_stress(10);
+   end
+end
+
+procedure keep_hts_in_range(variable arg0) begin
+   if (arg0 < 0) then begin
       arg0 := 0;
    end
    if (arg0 > 100) then begin
@@ -316,37 +222,30 @@ procedure decrease_thirst(variable arg0) begin
 end
 
 procedure decrease_stress(variable arg0) begin
-
-   if (has_fake_perk(DEPRESSION))then begin
-      stress := stress - (arg0/2);
-      end
+   if (has_fake_perk("Depression")) then begin
+      stress := stress - (arg0 / 2);
+   end
    else begin
       stress := stress - arg0;
    end
    stress := keep_hts_in_range(stress);
 end
-/*
-procedure use_obj_on_p_proc begin
-   call show_hts_levels;
-end
-*/
 
 procedure start begin
    variable LVar0 := 0;
    variable LVar1 := 0;
    variable LVar2 := 0;
    variable LVar3 := 0;
-
-   variable restock_obj2;
-   variable horn;
-   variable grail;
-
-   special_perk_timer := 100000000000000;
-
-   hunger_saved :=get_ini_setting("f2bin-mod.ini" + "|" + "hunger-saved" + "|" + "number");
-   thirst_saved :=get_ini_setting("f2bin-mod.ini" + "|" + "thirst-saved" + "|" + "number");
-   stress_saved :=get_ini_setting("f2bin-mod.ini" + "|" + "stress-saved" + "|" + "number");
-
+   variable LVar4 := 0;
+   variable LVar5 := 0;
+   variable LVar6 := 0;
+   variable LVar7 := 0;
+   variable LVar8 := 0;
+   special_perk_timer := 276447232;
+   hunger_saved := get_ini_setting("f2bin-mod.ini" + "|" + "hunger_saved" + "|" + "number");
+   thirst_saved := get_ini_setting("f2bin-mod.ini" + "|" + "thirst_saved" + "|" + "number");
+   stress_saved := get_ini_setting("f2bin-mod.ini" + "|" + "stress_saved" + "|" + "number");
+   perks_switch := get_ini_setting("f2bin-mod.ini" + "|" + "perks_switch" + "|" + "number");
    special_perk_stress_value := 0;
    hunger_level := 0;
    thirst_level := 0;
@@ -357,256 +256,206 @@ procedure start begin
    hunger := 0;
    thirst := 0;
    stress := 0;
-
-   restock_obj := create_object (00000597, 0, 0);
-   restock_obj2 := create_object (00000284, 0, 0);
-
-   horn := create_object (00000598, 0, 0);
-   grail := create_object (00000599, 0, 0);
-
-   if (obj_is_carrying_obj_pid(dude_obj, 00000598)==0 and (difficulty_level<2)) then begin
-      add_mult_objs_to_inven(dude_obj, horn, 1);
+   restock_obj := create_object_sid(532, 0, 0, -1);
+   LVar4 := create_object_sid(284, 0, 0, -1);
+   LVar5 := create_object_sid(533, 0, 0, -1);
+   LVar6 := create_object_sid(534, 0, 0, -1);
+   if ((obj_is_carrying_obj_pid(dude_obj, 533) == 0) and (difficulty_level < 2)) then begin
+      add_mult_objs_to_inven(dude_obj, LVar5, 1);
    end
-   if (obj_is_carrying_obj_pid(dude_obj, 00000599)==0 and (difficulty_level<2)) then begin
-      add_mult_objs_to_inven(dude_obj, grail, 1);
+//   if (difficulty_level == 0) then begin
+//      sfall_func2("set_ini_setting", "f2bin-mod.ini" + "|" + "horn_cost" + "|" + "number", 5);
+//      sfall_func2("set_ini_setting", "f2bin-mod.ini" + "|" + "grail_cost" + "|" + "number", 5);
+//   end
+//   if (difficulty_level == 1) then begin
+//      sfall_func2("set_ini_setting", "f2bin-mod.ini" + "|" + "horn_cost" + "|" + "number", 10);
+//      sfall_func2("set_ini_setting", "f2bin-mod.ini" + "|" + "grail_cost" + "|" + "number", 10);
+//   end
+//   if (difficulty_level == 2) then begin
+//      sfall_func2("set_ini_setting", "f2bin-mod.ini" + "|" + "horn_cost" + "|" + "number", 50);
+//      sfall_func2("set_ini_setting", "f2bin-mod.ini" + "|" + "grail_cost" + "|" + "number", 50);
+//   end
+   if ((obj_is_carrying_obj_pid(dude_obj, 534) == 0) and (difficulty_level < 2)) then begin
+      add_mult_objs_to_inven(dude_obj, LVar6, 1);
    end
-
-
-   if (obj_is_carrying_obj_pid(dude_obj, 00000597)==0 and (difficulty_level<2)) then begin
+   if ((obj_is_carrying_obj_pid(dude_obj, 532) == 0) and (difficulty_level < 2)) then begin
       add_mult_objs_to_inven(dude_obj, restock_obj, 1);
    end
-
-
-   //add_mult_objs_to_inven(dude_obj, restock_obj2, 1);
-
-
-   //display_msg("PANDA:");
-   //give_pid_qty(dude_obj, 00000596, 1);
-
- //  display_msg ("loaded " + get_pc_extra_stat(6) + " " +get_pc_extra_stat(7) + " " +get_pc_extra_stat(8));
-
-   if (global_var(791)> 0) then begin
+   if (global_var(791) > 0) then begin
       hunger := global_var(791);
    end
-   if (global_var(792)> 0) then begin
+   if (global_var(792) > 0) then begin
       thirst := global_var(792);
    end
-   if (global_var(793)> 0) then begin
+   if (global_var(793) > 0) then begin
       stress := global_var(793);
    end
-/*
-
-   if (get_pc_extra_stat(106)> 0) then begin
-      hunger := get_pc_extra_stat(106);
-   end
-   if (get_pc_extra_stat(107)> 0) then begin
-      thirst := get_pc_extra_stat(107);
-   end
-   if (get_pc_extra_stat(108)> 0) then begin
-      stress := get_pc_extra_stat(108);
-   end
-*/
-/*
-   hunger := 00;
-   thirst := 00;
-   stress := 00;
-*/
-/*
-   inchungertime := 18000; //in gametick 10 gametick = 1 sec    how long it will take to register natural change in hunger  3000 = 5 min  18000 = 30 min 864000 = 1 day 1728000 = 2 days
-   incthirsttime := 18000;
-   incstresstime := 864000;*/
-   /*register_hook_proc(31, gamemode_hook);
-   register_hook_proc(19, keypress_hook);
-   register_hook_proc(20, mouseclick_hook);
-   register_hook_proc(1, hit_control);
-   register_hook_proc(5, combat_control);
-   register_hook_proc(8, obj_used);
-*/
    if (game_loaded) then begin
-
-      variable random_perk;
-      load_stat_str := get_pc_base_stat (0);
-      load_stat_pe := get_pc_base_stat (1);
-      load_stat_end := get_pc_base_stat (2);
-      load_stat_cha := get_pc_base_stat (3);
-      load_stat_int := get_pc_base_stat (4);
-      load_stat_agi := get_pc_base_stat (5);
-      load_stat_lck := get_pc_base_stat (6);
-
+      load_stat_str := get_pc_base_stat(0);
+      load_stat_pe := get_pc_base_stat(1);
+      load_stat_end := get_pc_base_stat(2);
+      load_stat_cha := get_pc_base_stat(3);
+      load_stat_int := get_pc_base_stat(4);
+      load_stat_agi := get_pc_base_stat(5);
+      load_stat_lck := get_pc_base_stat(6);
       game_time_h_after_load := game_time;
       game_time_t_after_load := game_time;
       game_time_s_after_load := game_time;
       special_perk_timer_load := game_time;
-
       car_stolen_load := global_var(348);
-
       Tragic_load_number := global_var(796);
-      //Tragic_load_number := get_pc_extra_stat(51);
-      //display_msg(" " + get_pc_extra_stat(8) + " " + stress);
-      //set_pc_extra_stat(8, stress);
-      //display_msg(" " + get_pc_extra_stat(8));
       sex_number := global_var(358);
       virgin := global_var(590);
       level := get_pc_stat(1);
-
-      //set_global_var(TRIAL_NONE, 628);
-      /*set_global_var(GVAR_START_ARROYO_TRIAL, 1);
-      //display_msg("Arroyo gvars: " + global_var(GVAR_START_ARROYO_TRIAL));
-
-      set_pipboy_available(1);*/
-
-      /*LVar0 := get_ini_setting("fo2tweaks.ini" + "|" + "main" + "|" + "ammobox");
-      box_num := get_ini_setting("fo2tweaks.ini" + "|" + "ammobox" + "|" + "number");
-      box_color := get_ini_setting("fo2tweaks.ini" + "|" + "ammobox" + "|" + "color");
-      box_num_hunger := get_ini_setting("fo2tweaks.ini" + "|" + "hunger" + "|" + "number");
-      box_color_hunger := get_ini_setting("fo2tweaks.ini" + "|" + "hunger" + "|" + "color");
-      box_num_thirst := get_ini_setting("fo2tweaks.ini" + "|" + "thirst" + "|" + "number");
-      box_color_thirst := get_ini_setting("fo2tweaks.ini" + "|" + "thirst" + "|" + "color");
-      box_num_stress := get_ini_setting("fo2tweaks.ini" + "|" + "stress" + "|" + "number");
-      box_color_stress := get_ini_setting("fo2tweaks.ini" + "|" + "stress" + "|" + "color");*/
       box_num_hunger := get_ini_setting("f2bin-mod.ini" + "|" + "hunger" + "|" + "number");
       box_color_hunger := get_ini_setting("f2bin-mod.ini" + "|" + "hunger" + "|" + "color");
       box_num_thirst := get_ini_setting("f2bin-mod.ini" + "|" + "thirst" + "|" + "number");
       box_color_thirst := get_ini_setting("f2bin-mod.ini" + "|" + "thirst" + "|" + "color");
       box_num_stress := get_ini_setting("f2bin-mod.ini" + "|" + "stress" + "|" + "number");
       box_color_stress := get_ini_setting("f2bin-mod.ini" + "|" + "stress" + "|" + "color");
-      hunger_on:= get_ini_setting("f2bin-mod.ini" + "|" + "hunger_on" + "|" + "number");
-      thirst_on:= get_ini_setting("f2bin-mod.ini" + "|" + "thirst_on" + "|" + "number");
-      stress_on:= get_ini_setting("f2bin-mod.ini" + "|" + "stress_on" + "|" + "number");
-      hunger_increase_time:=get_ini_setting("f2bin-mod.ini" + "|" + "hunger_increase_time" + "|" + "number");
-      thirst_increase_time:=get_ini_setting("f2bin-mod.ini" + "|" + "thirst_increase_time" + "|" + "number");
-      stress_increase_time:=get_ini_setting("f2bin-mod.ini" + "|" + "stress_increase_time" + "|" + "number");
-      hunger_increase_mod:=get_ini_setting("f2bin-mod.ini" + "|" + "hunger_increase_mod" + "|" + "number");
-      thirst_increase_mod:=get_ini_setting("f2bin-mod.ini" + "|" + "thirst_increase_mod" + "|" + "number");
-      stress_increase_mod:=get_ini_setting("f2bin-mod.ini" + "|" + "stress_increase_mod" + "|" + "number");
+      hunger_on := get_ini_setting("f2bin-mod.ini" + "|" + "hunger_on" + "|" + "number");
+      thirst_on := get_ini_setting("f2bin-mod.ini" + "|" + "thirst_on" + "|" + "number");
+      stress_on := get_ini_setting("f2bin-mod.ini" + "|" + "stress_on" + "|" + "number");
+      hunger_increase_time := get_ini_setting("f2bin-mod.ini" + "|" + "hunger_increase_time" + "|" + "number");
+      thirst_increase_time := get_ini_setting("f2bin-mod.ini" + "|" + "thirst_increase_time" + "|" + "number");
+      stress_increase_time := get_ini_setting("f2bin-mod.ini" + "|" + "stress_increase_time" + "|" + "number");
+      hunger_increase_mod := get_ini_setting("f2bin-mod.ini" + "|" + "hunger_increase_mod" + "|" + "number");
+      thirst_increase_mod := get_ini_setting("f2bin-mod.ini" + "|" + "thirst_increase_mod" + "|" + "number");
+      stress_increase_mod := get_ini_setting("f2bin-mod.ini" + "|" + "stress_increase_mod" + "|" + "number");
+      if ((has_fake_perk("Kleptomaniac") == 0) and (has_fake_perk("Piromaniac") == 0) and (has_fake_perk("Gambler") == 0) and (has_fake_perk("Tragic Maniac") == 0) and (has_fake_perk("Masochist") == 0) and (has_fake_perk("Sadist") == 0) and (has_fake_perk("Necrophile") == 0) and (has_fake_perk("Pacifist") == 0) and (has_fake_perk("Jerk") == 0) and (has_fake_perk("Psychopath") == 0) and (has_fake_perk("Alcoholic") == 0) and (has_fake_perk("Glutton") == 0)) then begin
+         LVar7 := random(1, 7);
+         LVar8 := LVar7;
 
-      /*hunger_saved :=get_ini_setting("f2bin-mod.ini" + "|" + "hunger-saved" + "|" + "number");
-      thirst_saved :=get_ini_setting("f2bin-mod.ini" + "|" + "thirst-saved" + "|" + "number");
-      stress_saved :=get_ini_setting("f2bin-mod.ini" + "|" + "stress-saved" + "|" + "number");
-*/
-      if (has_fake_perk(KLEPTOMANIAC)==0 and  has_fake_perk(PIROMANIAC)==0 and has_fake_perk(GAMBLER)==0 and has_fake_perk(TRAGICK_MANIAC)==0 and has_fake_perk(MASOCHIST)==0 and
-         has_fake_perk(CHILD_MOLESTER)==0 and has_fake_perk(SADIST)==0 and has_fake_perk(NECROPHILE)==0 and has_fake_perk(ZOOPHILE)==0 and has_fake_perk(PACIFIST)==0 and has_fake_perk(JERK)==0
-         and has_fake_perk(PSYCHOPATH)==0 and has_fake_perk(ALCOHOLIC)==0 and has_fake_perk(GLUTTON)==0) then begin
-            random_perk := random(1, 9);
-            switch (random_perk) begin
-               case 1 :  begin set_fake_perk(KLEPTOMANIAC, 1, 160, KLEPTOMANIAC_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-               case 2 :  begin set_fake_perk(TRAGICK_MANIAC, 1, 149, TRAGICK_MANIAC_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-               case 3 :  begin set_fake_perk(MASOCHIST, 1, 60, MASOCHIST_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-               case 4 :  begin set_fake_perk(CHILD_MOLESTER, 1, 128, CHILD_MOLESTER_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-               case 5 :  begin set_fake_perk(SADIST, 1, 46, SADIST_DESC); special_perk_timer := 6000000; special_perk_stress_value := 10; end
-               case 6 :  begin set_fake_perk(NECROPHILE, 1, 133, NECROPHILE_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-               case 7 :  begin set_fake_perk(ZOOPHILE, 1, 116, ZOOPHILE_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-               case 8 : begin set_fake_perk(ALCOHOLIC, 1, 142, ALCOHOLIC_DESC); special_perk_timer := 864000; special_perk_stress_value := 5; end
-               case 9 : begin set_fake_perk(GLUTTON, 1, 102, GLUTTON_DESC); special_perk_timer := 6000000; special_perk_stress_value := 0; end
-            //case 2 :  begin set_fake_perk(PIROMANIAC, 1, 168, PIROMANIAC_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-            //case 3 :  begin set_fake_perk(GAMBLER, 1, 44, GAMBLER_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-            //case 10 : begin set_fake_perk(PACIFIST, 1, 65, PACIFIST_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-            //case 11 : begin set_fake_perk(JERK, 1, 111, JERK_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
-            //case 12 : begin set_fake_perk(PSYCHOPATH, 1, 49, PSYCHOPATH_DESC); special_perk_timer := 6000000; special_perk_stress_value := 20; end
+         if (perks_switch == 0) then begin
+               Lvar8 := 0;
+            end
+         if (LVar8 == 1) then begin
+            set_fake_perk("Kleptomaniac", 1, 160, "Your hands are very sticky. Liberating possesions from others brings you relief.");
+            special_perk_timer := 6000000;
+            special_perk_stress_value := 20;
+         end
+         else begin
+            if (LVar8 == 2) then begin
+               set_fake_perk("Tragic Maniac", 1, 149, "The most tragic things in this world is that Tragick is more limited than ever now. You need to catch'em all.");
+               special_perk_timer := 6000000;
+               special_perk_stress_value := 20;
+            end
+            else begin
+               if (LVar8 == 3) then begin
+                  set_fake_perk("Masochist", 1, 60, "Pain is your fuel. You feel great relief everytime you expierience it. Pain is life.");
+                  special_perk_timer := 6000000;
+                  special_perk_stress_value := 20;
+               end
+               else begin
+                  if (LVar8 == 4) then begin
+                     set_fake_perk("Sadist", 1, 46, "Everyone must suffer, that is the only truth. You are a tool in God's hands.");
+                     special_perk_timer := 6000000;
+                     special_perk_stress_value := 10;
+                  end
+                  else begin
+                     if (LVar8 == 5) then begin
+                        set_fake_perk("Necrophile", 1, 133, "You like them, while there are cold and stiff. While fresh bodies are still good substitute you prefer served cold.");
+                        special_perk_timer := 6000000;
+                        special_perk_stress_value := 20;
+                     end
+                     else begin
+                        if (LVar8 == 6) then begin
+                           set_fake_perk("Alcoholic", 1, 142, "Pull of the Firewater is strong within you. You feel like you could live only on liqueur and booze. Without it, you are losing part of yourself.");
+                           special_perk_timer := 864000;
+                           special_perk_stress_value := 5;
+                        end
+                        else begin
+                           if (LVar8 == 7) then begin
+                              set_fake_perk("Glutton", 1, 102, "You don't eat, you devour. You stomach is always empty. You always need more calories.");
+                              special_perk_timer := 6000000;
+                              special_perk_stress_value := 0;
+                           end
+                        end
+                     end
+                  end
+               end
             end
          end
-
-      //OVERWRITING file settings
+      end
       hunger_OV := -10;
       thirst_OV := -20;
       stress_OV := -30;
-
-      inchungertime_OV := -1; //in gametick 10 gametick = 1 sec    how long it will take to register natural change in hunger  3000 = 5 min  18000 = 30 min 864000 = 1 day 1728000 = 2 days
+      inchungertime_OV := -1;
       incthirsttime_OV := -1;
       incstresstime_OV := -1;
-
       hunger_on_OV := -1;
       thirst_on_OV := -1;
       stress_on_OV := -1;
-
       hunger_increase_mod_OV := -1;
       thirst_increase_mod_OV := -1;
       stress_increase_mod_OV := -1;
-
-      if (hunger_OV >=0)then begin
+      if (hunger_OV >= 0) then begin
          hunger := hunger_OV;
-         end
-      if (thirst_OV >=0)then begin
+      end
+      if (thirst_OV >= 0) then begin
          thirst := thirst_OV;
-         end
-      if (stress_OV >=0)then begin
+      end
+      if (stress_OV >= 0) then begin
          stress := stress_OV;
-         end
-
-      if (inchungertime_OV >=0)then begin
+      end
+      if (inchungertime_OV >= 0) then begin
          hunger_increase_time := inchungertime_OV;
-         end
-      if (incthirsttime_OV >=0)then begin
+      end
+      if (incthirsttime_OV >= 0) then begin
          thirst_increase_time := incthirsttime_OV;
-         end
-
-      if (incstresstime_OV >=0)then begin
+      end
+      if (incstresstime_OV >= 0) then begin
          stress_increase_time := incstresstime_OV;
-         end
-
-
+      end
       inchungertime := hunger_increase_time;
       incthirsttime := thirst_increase_time;
       incstresstime := stress_increase_time;
-
-      if (hunger_on_OV >=0)then begin
+      if (hunger_on_OV >= 0) then begin
          hunger_on := hunger_on_OV;
-         end
-      if (thirst_on_OV >=0)then begin
+      end
+      if (thirst_on_OV >= 0) then begin
          thirst_on := thirst_on_OV;
-         end
-      if (stress_on_OV >=0)then begin
+      end
+      if (stress_on_OV >= 0) then begin
          stress_on := stress_on_OV;
-         end
-
-      if (hunger_increase_mod_OV >=0)then begin
+      end
+      if (hunger_increase_mod_OV >= 0) then begin
          hunger_increase_mod := hunger_increase_mod_OV;
-         end
-      if (thirst_increase_mod_OV >=0)then begin
+      end
+      if (thirst_increase_mod_OV >= 0) then begin
          thirst_increase_mod := thirst_increase_mod_OV;
-         end
-      if (stress_increase_mod_OV >=0)then begin
+      end
+      if (stress_increase_mod_OV >= 0) then begin
          stress_increase_mod := stress_increase_mod_OV;
-         end
-
+      end
       BIGMODNUMBER1 := global_var(794);
-      //BIGMODNUMBER1 := get_pc_extra_stat(41);
       BIGMODNUMBER1DIV := BIGMODNUMBER1 / 1000000;
-      BIGMODNUMBER2 := BIGMODNUMBER1 - (BIGMODNUMBER1DIV*1000000);
+      BIGMODNUMBER2 := BIGMODNUMBER1 - (BIGMODNUMBER1DIV * 1000000);
       BIGMODNUMBER2DIV := BIGMODNUMBER2 / 100000;
-      BIGMODNUMBER3 := BIGMODNUMBER2 - (BIGMODNUMBER2DIV*100000);
+      BIGMODNUMBER3 := BIGMODNUMBER2 - (BIGMODNUMBER2DIV * 100000);
       BIGMODNUMBER3DIV := BIGMODNUMBER3 / 10000;
-      BIGMODNUMBER4 := BIGMODNUMBER3 - (BIGMODNUMBER3DIV*10000);
+      BIGMODNUMBER4 := BIGMODNUMBER3 - (BIGMODNUMBER3DIV * 10000);
       BIGMODNUMBER4DIV := BIGMODNUMBER4 / 1000;
-      BIGMODNUMBER5 := BIGMODNUMBER4 - (BIGMODNUMBER4DIV*1000);
+      BIGMODNUMBER5 := BIGMODNUMBER4 - (BIGMODNUMBER4DIV * 1000);
       BIGMODNUMBER5DIV := BIGMODNUMBER5 / 100;
-      BIGMODNUMBER6 := BIGMODNUMBER5 - (BIGMODNUMBER5DIV*100);
+      BIGMODNUMBER6 := BIGMODNUMBER5 - (BIGMODNUMBER5DIV * 100);
       BIGMODNUMBER6DIV := BIGMODNUMBER6 / 10;
-      BIGMODNUMBER7 := BIGMODNUMBER6 - (BIGMODNUMBER5DIV*10);
+      BIGMODNUMBER7 := BIGMODNUMBER6 - (BIGMODNUMBER5DIV * 10);
       BIGMODNUMBER7DIV := BIGMODNUMBER6 / 1;
-
       BIGMODNUMBER1MARKER := global_var(795);
-      //BIGMODNUMBER1MARKER := get_pc_extra_stat(42);
       BIGMODNUMBER1DIVMARKER := BIGMODNUMBER1MARKER / 1000000;
-      BIGMODNUMBER2MARKER := BIGMODNUMBER1MARKER - (BIGMODNUMBER1DIVMARKER*1000000);
+      BIGMODNUMBER2MARKER := BIGMODNUMBER1MARKER - (BIGMODNUMBER1DIVMARKER * 1000000);
       BIGMODNUMBER2DIVMARKER := BIGMODNUMBER2MARKER / 100000;
-      BIGMODNUMBER3MARKER := BIGMODNUMBER2MARKER - (BIGMODNUMBER2DIVMARKER*100000);
+      BIGMODNUMBER3MARKER := BIGMODNUMBER2MARKER - (BIGMODNUMBER2DIVMARKER * 100000);
       BIGMODNUMBER3DIVMARKER := BIGMODNUMBER3MARKER / 10000;
-      BIGMODNUMBER4MARKER := BIGMODNUMBER3MARKER - (BIGMODNUMBER3DIVMARKER*10000);
+      BIGMODNUMBER4MARKER := BIGMODNUMBER3MARKER - (BIGMODNUMBER3DIVMARKER * 10000);
       BIGMODNUMBER4DIVMARKER := BIGMODNUMBER4MARKER / 1000;
-      BIGMODNUMBER5MARKER := BIGMODNUMBER4MARKER - (BIGMODNUMBER4DIVMARKER*1000);
+      BIGMODNUMBER5MARKER := BIGMODNUMBER4MARKER - (BIGMODNUMBER4DIVMARKER * 1000);
       BIGMODNUMBER5DIVMARKER := BIGMODNUMBER5MARKER / 100;
-      BIGMODNUMBER6MARKER := BIGMODNUMBER5MARKER - (BIGMODNUMBER5DIVMARKER*100);
+      BIGMODNUMBER6MARKER := BIGMODNUMBER5MARKER - (BIGMODNUMBER5DIVMARKER * 100);
       BIGMODNUMBER6DIVMARKER := BIGMODNUMBER6MARKER / 10;
-      BIGMODNUMBER7MARKER := BIGMODNUMBER6MARKER - (BIGMODNUMBER5DIVMARKER*10);
+      BIGMODNUMBER7MARKER := BIGMODNUMBER6MARKER - (BIGMODNUMBER5DIVMARKER * 10);
       BIGMODNUMBER7DIVMARKER := BIGMODNUMBER6MARKER / 1;
-
-     /* display_msg(" " + hunger + " " + thirst +" " + stress);
-      display_msg(" " + hunger_on + " " + thirst_on +" " + stress_on);*/
-     /* display_msg(" " + hunger_increase_time + " " + thirst_increase_time +" " + stress_increase_time);
-      display_msg(" " + hunger_increase_mod + " " + thirst_increase_mod +" " + stress_increase_mod);*/
-
-
       register_hook_proc(31, gamemode_hook);
       register_hook_proc(19, keypress_hook);
       register_hook_proc(20, mouseclick_hook);
@@ -614,67 +463,53 @@ procedure start begin
       register_hook_proc(5, combat_control);
       register_hook_proc(8, obj_used);
       register_hook_proc(22, steal_hook);
-      //register_hook_proc(32, standart_obj_used);
       register_hook_proc(9, remove_inv_obj);
-      //register_hook_proc();
-
       call update_box(1);
    end
 end
 
 procedure update_box(variable arg0) begin
    variable LVar1 := 0;
-   variable LVar2 := 0; // hunger_level message
-   variable LVar3 := 0; // thirst_level message
-   variable LVar4 := 0; // stress_level message
-   variable LVar5 := 0; //hunger exp modifier
-   variable LVar6 := 0;//thirst exp modifier
-   variable LVar7 := 0;//stress exp modifier
-
-   variable L2Var8 := 0;    //str
-   variable L2Var9 := 0;    //per
-   variable L2Var10 := 0;   //end
-   variable L2Var11 := 0;   //char
-   variable L2Var12 := 0;  //int
-   variable L2Var13 := 0; //agility
-   variable L2Var14 := 0; //luck
-
-
-     // display_msg("BIG MARKERS" +  BIGMODNUMBER1DIVMARKER + " " + BIGMODNUMBER2DIVMARKER + " " + BIGMODNUMBER3DIVMARKER + " " + BIGMODNUMBER4DIVMARKER + " " +
-     // BIGMODNUMBER5DIVMARKER + " " + BIGMODNUMBER6DIVMARKER + " " + BIGMODNUMBER7DIVMARKER);
-
-   //   display_msg ("loaded mods bez marker" + BIGMODNUMBER1DIV + " " +BIGMODNUMBER2DIV + " " + BIGMODNUMBER3DIV
-  // + " " + BIGMODNUMBER4DIV + " " + BIGMODNUMBER5DIV + " " + BIGMODNUMBER6DIV + " " + BIGMODNUMBER7DIV);
-      if (BIGMODNUMBER1DIVMARKER == 1 and BIGMODNUMBER1DIV > 0) then begin
-         BIGMODNUMBER1DIV := BIGMODNUMBER1DIV *- 1;
-      end
-      if (BIGMODNUMBER2DIVMARKER == 1 and BIGMODNUMBER2DIV > 0) then begin
-         BIGMODNUMBER2DIV := BIGMODNUMBER2DIV *- 1;
-      end
-      if (BIGMODNUMBER3DIVMARKER == 1 and BIGMODNUMBER3DIV > 0) then begin
-         BIGMODNUMBER3DIV := BIGMODNUMBER3DIV *- 1;
-      end
-      if (BIGMODNUMBER4DIVMARKER == 1 and BIGMODNUMBER4DIV > 0) then begin
-         BIGMODNUMBER4DIV := BIGMODNUMBER4DIV *- 1;
-      end
-      if (BIGMODNUMBER5DIVMARKER == 1 and BIGMODNUMBER5DIV > 0) then begin
-         BIGMODNUMBER5DIV := BIGMODNUMBER5DIV *- 1;
-      end
-      if (BIGMODNUMBER6DIVMARKER == 1 and BIGMODNUMBER6DIV > 0) then begin
-         BIGMODNUMBER6DIV := BIGMODNUMBER6DIV *- 1;
-      end
-      if (BIGMODNUMBER7DIVMARKER == 1 and BIGMODNUMBER7DIV > 0) then begin
-         BIGMODNUMBER7DIV := BIGMODNUMBER7DIV *- 1;
-      end
-
-   //display_msg("1: " + load_stat_str + " " + load_stat_pe + " " + load_stat_end + " " + load_stat_cha + " " + load_stat_int + " " + load_stat_agi + " " + load_stat_lck);
-
-   if (hunger_on==1)then begin
+   variable LVar2 := 0;
+   variable LVar3 := 0;
+   variable LVar4 := 0;
+   variable LVar5 := 0;
+   variable LVar6 := 0;
+   variable LVar7 := 0;
+   variable LVar8 := 0;
+   variable LVar9 := 0;
+   variable LVar10 := 0;
+   variable LVar11 := 0;
+   variable LVar12 := 0;
+   variable LVar13 := 0;
+   variable LVar14 := 0;
+   if ((BIGMODNUMBER1DIVMARKER == 1) and (BIGMODNUMBER1DIV > 0)) then begin
+      BIGMODNUMBER1DIV := BIGMODNUMBER1DIV * -1;
+   end
+   if ((BIGMODNUMBER2DIVMARKER == 1) and (BIGMODNUMBER2DIV > 0)) then begin
+      BIGMODNUMBER2DIV := BIGMODNUMBER2DIV * -1;
+   end
+   if ((BIGMODNUMBER3DIVMARKER == 1) and (BIGMODNUMBER3DIV > 0)) then begin
+      BIGMODNUMBER3DIV := BIGMODNUMBER3DIV * -1;
+   end
+   if ((BIGMODNUMBER4DIVMARKER == 1) and (BIGMODNUMBER4DIV > 0)) then begin
+      BIGMODNUMBER4DIV := BIGMODNUMBER4DIV * -1;
+   end
+   if ((BIGMODNUMBER5DIVMARKER == 1) and (BIGMODNUMBER5DIV > 0)) then begin
+      BIGMODNUMBER5DIV := BIGMODNUMBER5DIV * -1;
+   end
+   if ((BIGMODNUMBER6DIVMARKER == 1) and (BIGMODNUMBER6DIV > 0)) then begin
+      BIGMODNUMBER6DIV := BIGMODNUMBER6DIV * -1;
+   end
+   if ((BIGMODNUMBER7DIVMARKER == 1) and (BIGMODNUMBER7DIV > 0)) then begin
+      BIGMODNUMBER7DIV := BIGMODNUMBER7DIV * -1;
+   end
+   if (hunger_on == 1) then begin
       if ((hunger >= 0) and (hunger < 15)) then begin
          LVar2 := message_str_game(17, 512);
          hunger_level := LVar2;
          LVar5 := 10;
-         L2Var10 := L2Var10 + 1;
+         LVar10 := LVar10 + 1;
          hide_iface_tag(box_num_hunger);
       end
       if ((hunger >= 15) and (hunger < 40)) then begin
@@ -687,8 +522,8 @@ procedure update_box(variable arg0) begin
          LVar2 := message_str_game(17, 514);
          hunger_level := LVar2;
          LVar5 := -10;
-         L2Var8 := L2Var8 - 1;
-         L2Var10 := L2Var10 - 1;
+         LVar8 := LVar8 - 1;
+         LVar10 := LVar10 - 1;
          hide_iface_tag(box_num_hunger);
       end
       if ((hunger >= 61) and (hunger < 90)) then begin
@@ -699,9 +534,9 @@ procedure update_box(variable arg0) begin
             show_iface_tag(box_num_hunger);
          end
          LVar5 := -25;
-         L2Var8 := L2Var8 - 1;
-         L2Var10 := L2Var10 - 1;
-         L2Var12 := L2Var12 - 1;
+         LVar8 := LVar8 - 1;
+         LVar10 := LVar10 - 1;
+         LVar12 := LVar12 - 1;
       end
       if (hunger >= 90) then begin
          LVar2 := message_str_game(17, 516);
@@ -711,20 +546,20 @@ procedure update_box(variable arg0) begin
             show_iface_tag(box_num_hunger);
          end
          LVar5 := -33;
-         L2Var8 := L2Var8 - 2;
-         L2Var9 := L2Var9 - 1;
-         L2Var10 := L2Var10 - 2;
-         L2Var12 := L2Var12 - 1;
-         L2Var14 := L2Var14 - 1;
+         LVar8 := LVar8 - 2;
+         LVar9 := LVar9 - 1;
+         LVar10 := LVar10 - 2;
+         LVar12 := LVar12 - 1;
+         LVar14 := LVar14 - 1;
          hide_iface_tag(box_num_thirst);
       end
    end
-   if (thirst_on==1)then begin
+   if (thirst_on == 1) then begin
       if ((thirst >= 0) and (thirst < 15)) then begin
          LVar3 := message_str_game(17, 506);
          thirst_level := LVar3;
          LVar6 := 10;
-         L2Var9 := L2Var9 + 1;
+         LVar9 := LVar9 + 1;
          hide_iface_tag(box_num_thirst);
       end
       if ((thirst >= 15) and (thirst < 40)) then begin
@@ -737,8 +572,8 @@ procedure update_box(variable arg0) begin
          LVar3 := message_str_game(17, 508);
          thirst_level := LVar3;
          LVar6 := -10;
-         L2Var9 := L2Var9 - 1;
-         L2Var13 := L2Var13 - 1;
+         LVar9 := LVar9 - 1;
+         LVar13 := LVar13 - 1;
          hide_iface_tag(box_num_thirst);
       end
       if ((thirst >= 61) and (thirst < 90)) then begin
@@ -749,9 +584,9 @@ procedure update_box(variable arg0) begin
             show_iface_tag(box_num_thirst);
          end
          LVar6 := -25;
-         L2Var9 := L2Var9 - 1;
-         L2Var13 := L2Var13 - 1;
-         L2Var14 := L2Var14 - 1;
+         LVar9 := LVar9 - 1;
+         LVar13 := LVar13 - 1;
+         LVar14 := LVar14 - 1;
       end
       if (thirst >= 90) then begin
          LVar3 := message_str_game(17, 510);
@@ -761,19 +596,19 @@ procedure update_box(variable arg0) begin
             show_iface_tag(box_num_thirst);
          end
          LVar6 := -33;
-         L2Var8 := L2Var8 - 1;
-         L2Var9 := L2Var9 - 2;
-         L2Var12 := L2Var12 - 1;
-         L2Var13 := L2Var13 - 2;
-         L2Var14 := L2Var14 - 1;
+         LVar8 := LVar8 - 1;
+         LVar9 := LVar9 - 2;
+         LVar12 := LVar12 - 1;
+         LVar13 := LVar13 - 2;
+         LVar14 := LVar14 - 1;
       end
    end
-   if (stress_on==1)then begin
+   if (stress_on == 1) then begin
       if ((stress >= 0) and (stress < 15)) then begin
          LVar4 := message_str_game(17, 519);
          stress_level := LVar4;
          LVar7 := 10;
-         L2Var14 := L2Var14 + 1;
+         LVar14 := LVar14 + 1;
          hide_iface_tag(box_num_stress);
       end
       if ((stress >= 15) and (stress < 40)) then begin
@@ -786,8 +621,8 @@ procedure update_box(variable arg0) begin
          LVar4 := message_str_game(17, 521);
          stress_level := LVar4;
          LVar7 := -10;
-         L2Var9 := L2Var9 - 1;
-         L2Var10 := L2Var10 - 1;
+         LVar9 := LVar9 - 1;
+         LVar10 := LVar10 - 1;
          hide_iface_tag(box_num_stress);
       end
       if ((stress >= 61) and (stress < 90)) then begin
@@ -798,74 +633,30 @@ procedure update_box(variable arg0) begin
             show_iface_tag(box_num_stress);
          end
          LVar7 := -25;
-         L2Var9 := L2Var9 - 1;
-         L2Var10 := L2Var10 - 1;
-         L2Var14 := L2Var14 - 1;
+         LVar9 := LVar9 - 1;
+         LVar10 := LVar10 - 1;
+         LVar14 := LVar14 - 1;
       end
       if (stress >= 90) then begin
          LVar4 := message_str_game(17, 523);
-         set_fake_perk(DEPRESSION, 1, 174, DEPRESSION_DESC);
+         set_fake_perk("Depression", 1, 174, "You don't feel like living. Life is hell and yet you are here. There are many ways to get there but is there any cure? You don't know, and frankly you don't care.");
          stress_level := LVar4;
          sfall_func3("set_iface_tag_text", box_num_stress, LVar4, box_color_stress);
          if (not(is_iface_tag_active(box_num_stress))) then begin
             show_iface_tag(box_num_stress);
          end
          LVar7 := -33;
-         L2Var8 := L2Var8 - 1;
-         L2Var9 := L2Var9 - 1;
-         L2Var10 := L2Var10 - 1;
-         L2Var11 := L2Var11 - 1;
-         L2Var12 := L2Var12 - 1;
-         L2Var13 := L2Var13 - 1;
-         L2Var14 := L2Var14 - 1;
+         LVar8 := LVar8 - 1;
+         LVar9 := LVar9 - 1;
+         LVar10 := LVar10 - 1;
+         LVar11 := LVar11 - 1;
+         LVar12 := LVar12 - 1;
+         LVar13 := LVar13 - 1;
+         LVar14 := LVar14 - 1;
       end
    end
-   //display_msg("2LVAR: " + L2Var8 + " " + L2Var9 + " " + L2Var10 + " " + L2Var11 + " " + L2Var12 + " " + L2Var13 + " " + L2Var14);
-
-   call set_stat_modifier(L2Var8, L2Var9, L2Var10, L2Var11, L2Var12, L2Var13, L2Var14);
+   call set_stat_modifier(LVar8, LVar9, LVar10, LVar11, LVar12, LVar13, LVar14);
    call set_xp_modifier(LVar5, LVar6, LVar7);
-
-end
-
-procedure steal_hook begin
-   variable LVar0 := 0;
-   variable LVar1 := 0;
-   variable LVar2 := 0;
-   variable LVar3 := 0;
-
-   LVar0 := get_sfall_arg; //who
-   LVar1 := get_sfall_arg; //target
-   LVar2 := get_sfall_arg; //item
-   LVar3 := get_sfall_arg; //mode steal/plant
-
-   if (obj_name(LVar0) == obj_name(dude_obj)) then begin
-         if (has_fake_perk(CHILD_MOLESTER)) then begin
-            if (obj_art_fid(Lvar1) == 16777243 or obj_art_fid(Lvar1) == 16777336) then begin
-               call decrease_stress(15);
-               special_perk_timer_load := game_time;
-               display_msg("Touch of pure and young skin is what you needed!");
-            end
-            else begin
-               call decrease_stress(-5);
-               display_msg("You don't enjoy touching not pure flesh!");
-            end
-         end
-         if (has_fake_perk(KLEPTOMANIAC)) then begin
-            if (obj_art_fid(Lvar1) == 16777243 or obj_art_fid(Lvar1) == 16777336) then begin
-                  call decrease_stress(-10);
-                  display_msg("You feel very dirty touching that child.");
-               end
-            else begin
-               call decrease_stress(5);
-               special_perk_timer_load := game_time;
-               display_msg("Your hands starts to stop itching.");
-            end
-
-         end
-   end
-
-   //display_msg("stealing: " + "Who: "+ Lvar0 + " Target " + LVar1+ " Item " + LVar2 + " mode " + Lvar3);
-
 end
 
 procedure gamemode_hook begin
@@ -883,135 +674,80 @@ procedure gamemode_hook begin
       give_exp_points(500);
       display_msg("For having sex, you earned 500 experience points!");
    end
- //  display_msg("" + hunger + " " + thirst + " " + stress);
    call set_hts();
-
-end
-
-procedure show_hts_levels begin
-
-   if (hunger_on) then begin
-      display_msg("Hunger level: " + hunger_level + "(" + hunger + ")");
-   end
-   if (thirst_on) then begin
-   display_msg("Thirst level: " + thirst_level + "(" + thirst + ")");
-   end
-   if (stress_on) then begin
-   display_msg("Stress level: " + stress_level + "(" + stress + ")");
-   end
-
 end
 
 procedure keypress_hook begin
    variable LVar0 := 0;
    variable LVar1 := 0;
-   variable temp;
+   variable LVar2 := 0;
+   variable LVar3 := 0;
    variable LVar4 := 0;
    variable LVar5 := 0;
-   variable bodies_active;
-
    LVar0 := get_sfall_arg;
    LVar1 := get_sfall_arg;
-
-   /*if ((LVar0 == 1) and hotkey_pressed_now(39, LVar1)) then begin
-      if (not(bodies_active)) then begin
-      bodies_active := 1;
-      LVar4 := list_begin(0);
-      while (LVar4 != 0) do begin
-         LVar5 := list_next(LVar4);
-         if (LVar5) then begin
-               if ((critter_state(LVar4) == 1)) then begin
-
-                     display_msg("bodies: " + (obj_pid(LVar5) + " name: ") + obj_name(LVar5));
-               end
-         end
-         else begin
-            list_end(LVar4);
-            LVar4 := 0;
-            bodies_active := 0;
-         end
-      end
-   end
-
-   end*/
-
-   /*if ((LVar0 == 1) and hotkey_pressed_now(38, LVar1)) then begin
-
-      //display_msg ("h: " + hunger + " t: " + thirst + " s: " + stress);
-      call set_hts();
-      call increaste_hunger();
-      call increaste_thirst();
-      call increaste_stress();
-
-      //display_msg("Diff lvl:" + difficulty_level);
-      //set_selectable_perk("Steadfast", 1, 1, "You stand where you like, and even a rocket to the face isn't going to move you.");
-      display_msg("Hunger level: " + hunger_level + "(" + hunger + ")");
-      display_msg("Thirst level: " + thirst_level + "(" + thirst + ")");
-      display_msg("Stress level: " + stress_level + "(" + stress + ")");
-      //display_msg("critter base: " + get_critter_base_stat(dude_obj,5)+ " critter  stat"+dude_agility + " pc base "+ get_pc_base_stat(5));
-
-  // display_msg("key" + hunger + " " + thirst + " " + stress);
-   call set_hts();
-
-   end*/
 end
 
 procedure mouseclick_hook begin
    variable LVar0 := 0;
    variable LVar1 := 0;
-
    LVar0 := get_sfall_arg;
    LVar1 := get_sfall_arg;
-
-   //display_msg ("window:" + get_window_under_mouse);
-   if (global_var (449) > 0 and was_married_load == 0) then begin
+   if ((global_var(449) > 0) and (was_married_load == 0)) then begin
       call decrease_stress(-100);
       was_married_load := global_var(449);
    end
-
-   if (global_var (348) > 0) and (car_stolen_load ==0) then begin
+   if ((global_var(348) > 0) and (car_stolen_load == 0)) then begin
       call decrease_stress(-40);
       car_stolen_load := global_var(348);
-      //display_msg ("Stolen car: " + global_var(348)); //add variable to check if car is stolen
-      end
+   end
    if (level < get_pc_stat(1)) then begin
       call decrease_stress(30);
       level := get_pc_stat(1);
    end
-   //
    if (LVar0 == 1) then begin
       call increaste_hunger();
       call increaste_thirst();
       call increaste_stress();
    end
-   //critter := get_sfall_arg;
-   //display_msg("object name: " + obj_name(get_sfall_arg)+ obj_name (get_sfall_arg));
-
-   //display_msg ("Maximum aciton point:" + get_critter_stat(dude_obj, 8));
-
-   //display_msg ("targer: " + target_obj);
-   //display_msg("VIC status: " + critter_state("Vic"));
-  // display_msg("mouse" + hunger + " " + thirst + " " + stress);
    call set_hts();
+end
 
-   //display_msg("text: " + get_pc_extra_stat(6) + " " + get_critter_stat(dude_obj,6));
+procedure steal_hook begin
+   variable LVar0 := 0;
+   variable LVar1 := 0;
+   variable LVar2 := 0;
+   variable LVar3 := 0;
+   LVar0 := get_sfall_arg;
+   LVar1 := get_sfall_arg;
+   LVar2 := get_sfall_arg;
+   LVar3 := get_sfall_arg;
+   if (obj_name(LVar0) == obj_name(dude_obj)) then begin
+      if (has_fake_perk("Kleptomaniac")) then begin
+         if ((obj_art_fid(LVar1) == 16777243) or (obj_art_fid(LVar1) == 16777336)) then begin
+            call decrease_stress(-10);
+            display_msg("You feel very dirty touching that child.");
+         end
+         else begin
+            call decrease_stress(5);
+            special_perk_timer_load := game_time;
+            display_msg("Your hands starts to stop itching.");
+         end
+      end
+   end
 end
 
 procedure increaste_hunger begin
    if (has_trait(2, dude_obj, 0)) then begin
-
       hunger_mod := 2;
    end
    else begin
       hunger_mod := 1;
    end
-
-   if (has_fake_perk(DEPRESSION))then begin
-      hunger_mod *= 2;
-      end
-   //display_msg("Hunger:" + inchungertime + " " + hunger_mod);
+   if (has_fake_perk("Depression")) then begin
+      hunger_mod := hunger_mod * 2;
+   end
    if ((game_time - game_time_h_after_load) > inchungertime) then begin
-
       hunger := hunger + ((game_time - game_time_h_after_load) / inchungertime * hunger_mod);
       game_time_h_after_load := game_time;
       hunger := keep_hts_in_range(hunger);
@@ -1020,7 +756,6 @@ procedure increaste_hunger begin
 end
 
 procedure increaste_thirst begin
-   //display_msg("Thirst:" + incthirsttime + " " + thirst_mod);
    if ((game_time - game_time_t_after_load) > incthirsttime) then begin
       if ((obj_pid(sfall_func2("critter_inven_obj2", dude_obj, 0)) == 14) or (obj_pid(sfall_func2("critter_inven_obj2", dude_obj, 0)) == 232) or (obj_pid(sfall_func2("critter_inven_obj2", dude_obj, 0)) == 348) or (obj_pid(sfall_func2("critter_inven_obj2", dude_obj, 0)) == 349)) then begin
          thirst_mod := 0;
@@ -1028,10 +763,9 @@ procedure increaste_thirst begin
       else begin
          thirst_mod := 2;
       end
-      if (has_fake_perk(DEPRESSION))then begin
-      thirst_mod *= 2;
+      if (has_fake_perk("Depression")) then begin
+         thirst_mod := thirst_mod * 2;
       end
-
       thirst := thirst + ((game_time - game_time_t_after_load) / incthirsttime * thirst_mod);
       game_time_t_after_load := game_time;
       thirst := keep_hts_in_range(thirst);
@@ -1040,84 +774,67 @@ procedure increaste_thirst begin
 end
 
 procedure increaste_stress begin
-
-   //display_msg ("times: GT:" + game_time + "SPT:" + special_perk_timer_load + " TIMER: " + special_perk_timer);
    if ((game_time - special_perk_timer_load) > special_perk_timer) then begin
-      if (has_fake_perk(KLEPTOMANIAC)) then begin
+      if (has_fake_perk("Kleptomaniac")) then begin
          display_msg("Your feel unsatisfied urge...and your hands feel empty...");
-         stress += 20;
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(PIROMANIAC)) then begin
-         stress += 20;
+      if (has_fake_perk("Piromaniac")) then begin
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(GAMBLER)) then begin
+      if (has_fake_perk("Gambler")) then begin
          display_msg("You're staring to forget when was the last time you win something.");
-         stress += 20;
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(TRAGICK_MANIAC)) then begin
-         tragic_number := obj_is_carrying_obj_pid(dude_obj, 00000304);
+      if (has_fake_perk("Tragic Maniac")) then begin
+         tragic_number := obj_is_carrying_obj_pid(dude_obj, 304);
          if (tragic_number <= Tragic_load_number) then begin
             display_msg("You felt unsettling urge to obtain more card...find them first.");
-            stress += 20;
+            stress := stress + 20;
             special_perk_timer_load := game_time;
          end
          set_global_var(796, tragic_number);
-         //set_pc_extra_stat(51, tragic_number);
-
       end
-      if (has_fake_perk(MASOCHIST)) then begin
-         display_msg ("Your skin is itching. It deserves more punishment... ");
-         stress += 20;
+      if (has_fake_perk("Masochist")) then begin
+         display_msg("Your skin is itching. It deserves more punishment... ");
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(CHILD_MOLESTER)) then begin
-         display_msg ("The sensation of young skin...you need some of that!");
-         stress += 20;
-         special_perk_timer_load := game_time;
-      end
-      if (has_fake_perk(SADIST)) then begin
+      if (has_fake_perk("Sadist")) then begin
          display_msg("All those people that you didn't hurt... you fell irritated.");
-         stress += 20;
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(NECROPHILE)) then begin
-         display_msg ("You feel less alive without the touch of death.");
-         stress += 20;
+      if (has_fake_perk("Necrophile")) then begin
+         display_msg("You feel less alive without the touch of death.");
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(ZOOPHILE)) then begin
-         display_msg ("You start to dream about being with a wolf...but then you wake up.");
-         stress += 20;
+      if (has_fake_perk("Pacifist")) then begin
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(PACIFIST)) then begin
-         stress += 20;
+      if (has_fake_perk("Jerk")) then begin
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(JERK)) then begin
-         stress += 20;
+      if (has_fake_perk("Psychopath")) then begin
+         stress := stress + 20;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(PSYCHOPATH)) then begin
-         stress += 20;
-         special_perk_timer_load := game_time;
-      end
-      if (has_fake_perk(ALCOHOLIC)) then begin
+      if (has_fake_perk("Alcoholic")) then begin
          display_msg("Your hands are starting to shake... you need to drink something!.");
-         stress += 5;
+         stress := stress + 5;
          special_perk_timer_load := game_time;
       end
-      if (has_fake_perk(GLUTTON)) then begin
-
-         stress += 20;
+      if (has_fake_perk("Glutton")) then begin
+         stress := stress + 20;
       end
       stress := keep_hts_in_range(stress);
-
    end
-
    if ((game_time - game_time_s_after_load) > incstresstime) then begin
       if ((get_critter_stat(dude_obj, 35) / get_critter_stat(dude_obj, 7) * 100) < 1) then begin
          stress := stress + 5;
@@ -1143,23 +860,10 @@ procedure increaste_stress begin
    end
 end
 
-procedure remove_inv_obj begin
-
-   variable LVar0 := 0;
-   variable LVar1 := 0;
-
-   LVar0 := get_sfall_arg; //obj containter
-   LVar1 := get_sfall_arg; //item_caps_total
-
-   if (Lvar0 != dude_obj and critter_state(Lvar0)==1 and has_fake_perk(NECROPHILE) and (critter_kill_type(Lvar0)==0 or critter_kill_type(Lvar0)==1 or critter_kill_type(Lvar0)==2)) then begin
-      display_msg("Still warm skin of your victims reduces your stress!");
-      call decrease_stress(5);
-   end
-   if (Lvar0 != dude_obj and critter_state(Lvar0)==1 and has_fake_perk(NECROPHILE) and (obj_art_fid(Lvar0)==16777344 or obj_art_fid(Lvar0)==16777345 or obj_art_fid(Lvar0)==16777346 or
-   obj_art_fid(Lvar0)==16777347 or obj_art_fid(Lvar0)==16777374 or obj_art_fid(Lvar0)==16777375 or obj_art_fid(Lvar0)==16777376)) then begin
-      display_msg("Bones of recently deceased puts you, right into good mood!");
-      call decrease_stress(10);
-   end
+procedure set_hts begin
+   set_global_var(791, hunger);
+   set_global_var(792, thirst);
+   set_global_var(793, stress);
 end
 
 procedure obj_used begin
@@ -1169,86 +873,82 @@ procedure obj_used begin
    LVar0 := get_sfall_arg;
    LVar1 := get_sfall_arg;
    LVar2 := get_sfall_arg;
-
-   //display_msg("Knur");
-   //display_msg("IT'S ON1" + " " + Lvar1 + " " + LVar2 + " " +obj_pid(LVar2));
-
-   if (obj_pid(LVar2) == 71) then begin //food
+   if (obj_pid(LVar2) == 71) then begin
       call decrease_thirst(10);
-      if (has_fake_perk(GLUTTON)) then begin
+      if (has_fake_perk("Glutton")) then begin
          call decrease_hunger(5);
          call decrease_stress(10);
       end
       else begin
          call decrease_hunger(10);
          call decrease_stress(5);
-         end
+      end
    end
    if (obj_pid(LVar2) == 81) then begin
-      if (has_fake_perk(GLUTTON)) then begin
+      if (has_fake_perk("Glutton")) then begin
          call decrease_hunger(10);
          call decrease_stress(20);
       end
       else begin
          call decrease_hunger(20);
          call decrease_stress(10);
-         end
-
+      end
    end
    if (obj_pid(LVar2) == 103) then begin
-      if (has_fake_perk(GLUTTON)) then begin
+      if (has_fake_perk("Glutton")) then begin
          call decrease_hunger(10);
          call decrease_stress(20);
       end
       else begin
          call decrease_hunger(20);
          call decrease_stress(10);
-         end
+      end
    end
    if (obj_pid(LVar2) == 378) then begin
-      if (has_fake_perk(GLUTTON)) then begin
+      if (has_fake_perk("Glutton")) then begin
          call decrease_hunger(5);
          call decrease_stress(30);
       end
       else begin
          call decrease_hunger(10);
          call decrease_stress(15);
-         end
+      end
    end
    if (obj_pid(LVar2) == 473) then begin
-      if (has_fake_perk(GLUTTON)) then begin
+      if (has_fake_perk("Glutton")) then begin
          call decrease_hunger(3);
       end
       else begin
          call decrease_hunger(5);
-         end
+      end
       call decrease_stress(-10);
    end
    if (obj_pid(LVar2) == 284) then begin
-      //display_msg("dupa");
-      if (has_fake_perk(GLUTTON)) then begin
+      if (has_fake_perk("Glutton")) then begin
          call decrease_hunger(20);
          call decrease_stress(20);
       end
       else begin
          call decrease_hunger(40);
          call decrease_stress(10);
-         end
+      end
       call decrease_thirst(-5);
+      destroy_object(obj_carrying_pid_obj(dude_obj, 284));
    end
    if (obj_pid(LVar2) == 295) then begin
-      if (has_fake_perk(GLUTTON)) then begin
+      if (has_fake_perk("Glutton")) then begin
          call decrease_hunger(10);
          call decrease_stress(40);
       end
       else begin
          call decrease_hunger(15);
          call decrease_stress(15);
-         end
+      end
       call decrease_thirst(-10);
+      destroy_object(obj_carrying_pid_obj(dude_obj, 295));
    end
-   if (obj_pid(LVar2) == 311) then begin  //drinks
-      if (has_fake_perk(ALCOHOLIC)) then begin
+   if (obj_pid(LVar2) == 311) then begin
+      if (has_fake_perk("Alcoholic")) then begin
          call decrease_stress(20);
          special_perk_timer_load := game_time;
       end
@@ -1256,10 +956,9 @@ procedure obj_used begin
          call decrease_stress(15);
       end
       call decrease_thirst(15);
-
    end
    if (obj_pid(LVar2) == 469) then begin
-      if (has_fake_perk(ALCOHOLIC)) then begin
+      if (has_fake_perk("Alcoholic")) then begin
          call decrease_stress(20);
          special_perk_timer_load := game_time;
       end
@@ -1273,7 +972,7 @@ procedure obj_used begin
       call decrease_stress(15);
    end
    if (obj_pid(LVar2) == 124) then begin
-      if (has_fake_perk(ALCOHOLIC)) then begin
+      if (has_fake_perk("Alcoholic")) then begin
          call decrease_stress(20);
          special_perk_timer_load := game_time;
       end
@@ -1283,7 +982,7 @@ procedure obj_used begin
       call decrease_thirst(20);
    end
    if (obj_pid(LVar2) == 125) then begin
-      if (has_fake_perk(ALCOHOLIC)) then begin
+      if (has_fake_perk("Alcoholic")) then begin
          call decrease_stress(20);
          special_perk_timer_load := game_time;
       end
@@ -1293,7 +992,7 @@ procedure obj_used begin
       call decrease_thirst(15);
    end
    if (obj_pid(LVar2) == 310) then begin
-      if (has_fake_perk(ALCOHOLIC)) then begin
+      if (has_fake_perk("Alcoholic")) then begin
          call decrease_stress(20);
          special_perk_timer_load := game_time;
       end
@@ -1305,12 +1004,13 @@ procedure obj_used begin
    if (obj_pid(LVar2) == 126) then begin
       call decrease_thirst(40);
       call decrease_stress(10);
+      destroy_object(obj_carrying_pid_obj(dude_obj, 126));
    end
    if (obj_pid(LVar2) == 267) then begin
       call decrease_thirst(40);
       call decrease_stress(10);
    end
-   if (obj_pid(LVar2) == 53) then begin //drugs start
+   if (obj_pid(LVar2) == 53) then begin
       call decrease_stress(60);
    end
    if (obj_pid(LVar2) == 87) then begin
@@ -1320,23 +1020,18 @@ procedure obj_used begin
       call decrease_stress(60);
    end
    if (obj_pid(LVar2) == 259) then begin
-      set_fake_perk(DEPRESSION, 0, 174, DEPRESSION_DESC);
+      set_fake_perk("Depression", 0, 174, "You don't feel like living. Life is hell and yet you are here. There are many ways to get there but is there any cure? You don't know, and frankly you don't care.");
       call decrease_stress(100);
    end
    if (obj_pid(LVar2) == 525) then begin
       call decrease_stress(60);
    end
-
-   if (obj_pid(Lvar2) == 508) then begin //misc items
+   if (obj_pid(LVar2) == 508) then begin
       call decrease_stress(50);
-      display_msg("You feel realifed after playing with a doll for a while.");
-      end
-   //if (obj_pid(LVar2) == 597) then begin
-   //   call show_hts_levels;
-   //end
- //     display_msg("" + hunger + " " + thirst + " " + stress);
+      display_msg("You feel RELIEVED after playing with a doll for a while.");
+      destroy_object(obj_carrying_pid_obj(dude_obj, 508));
+   end
    call set_hts();
-
 end
 
 procedure set_xp_modifier(variable arg0, variable arg1, variable arg2) begin
@@ -1354,266 +1049,158 @@ procedure set_xp_modifier(variable arg0, variable arg1, variable arg2) begin
 end
 
 procedure set_stat_modifier(variable arg0, variable arg1, variable arg2, variable arg3, variable arg4, variable arg5, variable arg6) begin
-
-   variable arg0marker;
-   variable arg1marker;
-   variable arg2marker;
-   variable arg3marker;
-   variable arg4marker;
-   variable arg5marker;
-   variable arg6marker;
-
-   variable local_str := load_stat_str;
-   variable local_pe := load_stat_pe;
-   variable local_end := load_stat_end; //7
-   variable local_cha := load_stat_cha;
-   variable local_int := load_stat_int;
-   variable local_agi := load_stat_agi;
-   variable local_lck := load_stat_lck;
-
-   variable mod_str := arg0 - BIGMODNUMBER1DIV;
-   variable mod_pe := arg1 - BIGMODNUMBER2DIV;
-   variable mod_end := arg2 - BIGMODNUMBER3DIV;    //arg2 = 1 bigmod = 1
-   variable mod_cha := arg3 - BIGMODNUMBER4DIV;
-   variable mod_int := arg4 - BIGMODNUMBER5DIV;
-   variable mod_agi := arg5 - BIGMODNUMBER6DIV;
-   variable mod_lck := arg6 - BIGMODNUMBER7DIV;
-
-   variable final_str_mod := local_str + mod_str;
-   variable final_pe_mod := local_pe + mod_pe;
-   variable final_end_mod := local_end + mod_end;     //7 + 0 = 7
-   variable final_cha_mod := local_cha + mod_cha;
-   variable final_int_mod := local_int + mod_int;
-   variable final_agi_mod := local_agi + mod_agi;
-   variable final_lck_mod := local_lck + mod_lck;
-
-   variable stat_mods_as_one;
-   variable stat_markers_as_one;
-
-   if (arg0<0)then
-   begin
-      arg0marker := 1;
-      arg0 := arg0 *- 1;
+   variable LVar7 := 0;
+   variable LVar8 := 0;
+   variable LVar9 := 0;
+   variable LVar10 := 0;
+   variable LVar11 := 0;
+   variable LVar12 := 0;
+   variable LVar13 := 0;
+   variable LVar14 := 0;
+   variable LVar15 := 0;
+   variable LVar16 := 0;
+   variable LVar17 := 0;
+   variable LVar18 := 0;
+   variable LVar19 := 0;
+   variable LVar20 := 0;
+   variable LVar21 := 0;
+   variable LVar22 := 0;
+   variable LVar23 := 0;
+   variable LVar24 := 0;
+   variable LVar25 := 0;
+   variable LVar26 := 0;
+   variable LVar27 := 0;
+   variable LVar28 := 0;
+   variable LVar29 := 0;
+   variable LVar30 := 0;
+   variable LVar31 := 0;
+   variable LVar32 := 0;
+   variable LVar33 := 0;
+   variable LVar34 := 0;
+   variable LVar35 := 0;
+   variable LVar36 := 0;
+   LVar14 := load_stat_str;
+   LVar15 := load_stat_pe;
+   LVar16 := load_stat_end;
+   LVar17 := load_stat_cha;
+   LVar18 := load_stat_int;
+   LVar19 := load_stat_agi;
+   LVar20 := load_stat_lck;
+   LVar21 := arg0 - BIGMODNUMBER1DIV;
+   LVar22 := arg1 - BIGMODNUMBER2DIV;
+   LVar23 := arg2 - BIGMODNUMBER3DIV;
+   LVar24 := arg3 - BIGMODNUMBER4DIV;
+   LVar25 := arg4 - BIGMODNUMBER5DIV;
+   LVar26 := arg5 - BIGMODNUMBER6DIV;
+   LVar27 := arg6 - BIGMODNUMBER7DIV;
+   LVar28 := LVar14 + LVar21;
+   LVar29 := LVar15 + LVar22;
+   LVar30 := LVar16 + LVar23;
+   LVar31 := LVar17 + LVar24;
+   LVar32 := LVar18 + LVar25;
+   LVar33 := LVar19 + LVar26;
+   LVar34 := LVar20 + LVar27;
+   if (arg0 < 0) then begin
+      LVar7 := 1;
+      arg0 := arg0 * -1;
    end
-   else
-      begin
-      arg0marker := 0;
-      end
-
-   if (arg1<0)then
-   begin
-      arg1marker := 1;
-      arg1 := arg1 *- 1;
+   else begin
+      LVar7 := 0;
    end
-   else
-      begin
-      arg1marker := 0;
-      end
-
-   if (arg2<0)then
-   begin
-      arg2marker := 1;
-      arg2 := arg2 *- 1;
+   if (arg1 < 0) then begin
+      LVar8 := 1;
+      arg1 := arg1 * -1;
    end
-   else
-      begin
-      arg2marker := 0;
-      end
-   if (arg3<0)then
-   begin
-      arg3marker := 1;
-      arg3 := arg3 *- 1;
+   else begin
+      LVar8 := 0;
    end
-   else
-      begin
-      arg3marker := 0;
-      end
-   if (arg4<0)then
-   begin
-      arg4marker := 1;
-      arg4 := arg4 *- 1;
+   if (arg2 < 0) then begin
+      LVar9 := 1;
+      arg2 := arg2 * -1;
    end
-   else
-      begin
-      arg4marker := 0;
-      end
-   if (arg5<0)then
-   begin
-      arg5marker := 1;
-      arg5 := arg5 *- 1;
+   else begin
+      LVar9 := 0;
    end
-   else
-      begin
-      arg5marker := 0;
-      end
-   if (arg6<0)then
-   begin
-      arg6marker := 1;
-      arg6 := arg6 *- 1;
+   if (arg3 < 0) then begin
+      LVar10 := 1;
+      arg3 := arg3 * -1;
    end
-   else
-      begin
-      arg6marker := 0;
-      end
-
-   //display_msg("2!modedstats: " + mod_str + "" + mod_pe + "" + mod_end + "" + mod_cha + "" + mod_int + "" + mod_agi + "" + mod_lck + "" );
-
-   //display_msg("2BIGMODloaded: " + BIGMODNUMBER1DIV + " " + BIGMODNUMBER2DIV + " " + BIGMODNUMBER3DIV + " " + BIGMODNUMBER4DIV + " " +
-   //BIGMODNUMBER5DIV + " " + BIGMODNUMBER6DIV + " " + BIGMODNUMBER7DIV);
-
-   if (final_str_mod > 10) then begin
-      final_str_mod := 10;
-      end
-   if (final_str_mod < 1) then begin
-      final_str_mod := 1;
-      end
-   if (final_pe_mod > 10) then begin
-      final_pe_mod := 10;
-      end
-   if (final_pe_mod < 1) then begin
-      final_pe_mod := 1;
-      end
-   if (final_end_mod > 10) then begin
-      final_end_mod := 10;
-      end
-   if (final_end_mod < 1) then begin
-      final_end_mod := 1;
-      end
-   if (final_cha_mod > 10) then begin
-      final_cha_mod := 10;
-      end
-   if (final_cha_mod < 1) then begin
-      final_cha_mod := 1;
-      end
-   if (final_int_mod > 10) then begin
-      final_int_mod := 10;
-      end
-   if (final_int_mod < 1) then begin
-      final_int_mod := 1;
-      end
-   if (final_agi_mod > 10) then begin
-      final_agi_mod := 10;
-      end
-   if (final_agi_mod < 1) then begin
-      final_agi_mod := 1;
-      end
-   if (final_lck_mod > 10) then begin
-      final_lck_mod := 10;
-      end
-   if (final_lck_mod < 1) then begin
-      final_lck_mod := 1;
-      end
-/*
-   if (final_str_mod == load_stat_str + arg0) then begin
-      set_pc_base_stat(0, final_str_mod);
+   else begin
+      LVar10 := 0;
    end
-   if (final_pe_mod == load_stat_pe + arg1) then begin
-      set_pc_base_stat(1, final_pe_mod);
+   if (arg4 < 0) then begin
+      LVar11 := 1;
+      arg4 := arg4 * -1;
    end
-   if (final_end_mod == load_stat_end + arg2) then begin
-   set_pc_base_stat(2, final_end_mod);
+   else begin
+      LVar11 := 0;
    end
-   if (final_cha_mod == load_stat_cha + arg3) then begin
-   set_pc_base_stat(3, final_cha_mod);
+   if (arg5 < 0) then begin
+      LVar12 := 1;
+      arg5 := arg5 * -1;
    end
-   if (final_int_mod == load_stat_int + arg4) then begin
-   set_pc_base_stat(4, final_int_mod);
+   else begin
+      LVar12 := 0;
    end
-   if (final_agi_mod == load_stat_agi + arg5) then begin
-   set_pc_base_stat(5, final_agi_mod);
+   if (arg6 < 0) then begin
+      LVar13 := 1;
+      arg6 := arg6 * -1;
    end
-   if (final_lck_mod == load_stat_lck + arg6) then begin
-   set_pc_base_stat(6, final_lck_mod);
-   end*/
-
-   set_pc_base_stat(0, final_str_mod);
-   set_pc_base_stat(1, final_pe_mod);
-   set_pc_base_stat(2, final_end_mod);
-   set_pc_base_stat(3, final_cha_mod);
-   set_pc_base_stat(4, final_int_mod);
-   set_pc_base_stat(5, final_agi_mod);
-   set_pc_base_stat(6, final_lck_mod);
-
-   /*set_critter_base_stat(dude_obj, 0, final_str_mod);
-   set_critter_base_stat(dude_obj, 1, final_pe_mod);
-   set_critter_base_stat(dude_obj, 2, final_end_mod);
-   set_critter_base_stat(dude_obj, 3, final_cha_mod);
-   set_critter_base_stat(dude_obj, 4, final_int_mod);
-   set_critter_base_stat(dude_obj, 5, final_agi_mod);
-   set_critter_base_stat(dude_obj, 6, final_lck_mod);
-*/
-   /*if (final_str_mod == load_stat_str + arg0) then begin
-      set_critter_base_stat(dude_obj, 0, final_str_mod);
+   else begin
+      LVar13 := 0;
    end
-   if (final_pe_mod == load_stat_pe + arg1) then begin
-      set_critter_base_stat(dude_obj, 1, final_pe_mod);
+   if (LVar28 > 10) then begin
+      LVar28 := 10;
    end
-   if (final_end_mod == load_stat_end + arg2) then begin
-   set_critter_base_stat(dude_obj, 2, final_end_mod);
+   if (LVar28 < 1) then begin
+      LVar28 := 1;
    end
-   if (final_cha_mod == load_stat_cha + arg3) then begin
-   set_critter_base_stat(dude_obj, 3, final_cha_mod);
+   if (LVar29 > 10) then begin
+      LVar29 := 10;
    end
-   if (final_int_mod == load_stat_int + arg4) then begin
-   set_critter_base_stat(dude_obj, 4, final_int_mod);
+   if (LVar29 < 1) then begin
+      LVar29 := 1;
    end
-   if (final_agi_mod == load_stat_agi + arg5) then begin
-   set_critter_base_stat(dude_obj, 5, final_agi_mod);
+   if (LVar30 > 10) then begin
+      LVar30 := 10;
    end
-   if (final_lck_mod == load_stat_lck + arg6) then begin
-   set_critter_base_stat(dude_obj, 6, final_lck_mod);
+   if (LVar30 < 1) then begin
+      LVar30 := 1;
    end
-*/
-   //display_msg("2raw args: " + arg0 + " " + arg1 + " " + arg2 + " " + arg3 + " " + arg4 + " " + arg5 + " " + arg6);
-
-   stat_mods_as_one := ((arg0+1) * 1000000 - 1000000 + (arg1+1) * 100000 - 100000 + (arg2+1) * 10000 -10000 + (arg3+1) * 1000 -1000 + (arg4+1) * 100 - 100+ (arg5+1) * 10 -10 + (arg6+1) * 1-1);
-   stat_markers_as_one := ((arg0marker+1) * 1000000 - 1000000 + (arg1marker+1) * 100000 - 100000 + (arg2marker+1) * 10000 -10000 + (arg3marker+1) * 1000 -1000 + (arg4marker+1) * 100 - 100+ (arg5marker+1) * 10 -10 + (arg6marker+1) * 1-1);
-   /*dupa12 := (arg0 + 1) * 1000000 - 1000000 + (arg1 + 1) * 100000 - 100000;
-   dupa23 := (arg2 + 1) * 10000 -10000 + (arg3 + 1) * 1000 -1000;
-   display_msg ((arg0 + 1) * 1000000 - 1000000 + " aaa");
-   display_msg (dupa12 + " asd");
-   display_msg (dupa23 + " asd");*/
-  // display_msg (stat_mods_as_one + " mods");
-  // display_msg (stat_markers_as_one + " markers");
-   //display_msg (100*(arg1+1) -100 + "asd");
-   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-   //display_msg (dupa + " dupa");
-   set_global_var(794, stat_mods_as_one);
-   set_global_var(795, stat_markers_as_one);
-   /*set_pc_extra_stat(41, stat_mods_as_one);
-   set_pc_extra_stat(42, stat_markers_as_one);*/
-
-   //display_msg("global: " + global_var(794) + " " + global_var(795));
-   //display_msg(" " + get_pc_extra_stat(31) + " " + get_pc_extra_stat(32));
-   //+ " " + get_pc_extra_stat(33)+ " " + get_pc_extra_stat(34)+ " "
-   //+ get_pc_extra_stat(35)+ " " + get_pc_extra_stat(36)+ " " + get_pc_extra_stat(37));
-
-   //display_msg("2loaded stats: " + load_stat_str + " " + load_stat_pe + " " + load_stat_end + " " + load_stat_cha + " " + load_stat_int + " " + load_stat_agi + " " + load_stat_lck);
-
-   //display_msg("2saved stats: " + final_str_mod + " " + final_pe_mod + " " + final_end_mod + " " + final_cha_mod + " " + final_int_mod + " " + final_agi_mod + " " + final_lck_mod);
-
-   //display_msg("2saved mod: " + arg0 + " " + arg1 + " " + arg2 + " " + arg3 + " " + arg4 + " " + arg5 + " " + arg6);
-
-/*   display_msg ("loaded :" + get_pc_extra_stat(21) + " " + get_pc_extra_stat(22) + " " + get_pc_extra_stat(23)
-   + " " + get_pc_extra_stat(24) + " " + get_pc_extra_stat(25) + " " + get_pc_extra_stat(26) + " " + get_pc_extra_stat(27));
-*/
- /*  display_msg ("loaded late 20 - 26:" + get_pc_extra_stat(20) + " " + get_pc_extra_stat(21) + " " + get_pc_extra_stat(22)
-   + " " + get_pc_extra_stat(23) + " " + get_pc_extra_stat(24) + " " + get_pc_extra_stat(25) + " " + get_pc_extra_stat(26));
-
-   display_msg ("loaded late 27 - 33:" + get_pc_extra_stat(27) + " " + get_pc_extra_stat(28) + " " + get_pc_extra_stat(29)
-   + " " + get_pc_extra_stat(30) + " " + get_pc_extra_stat(31) + " " + get_pc_extra_stat(32) + " " + get_pc_extra_stat(33));
-
-   display_msg ("loaded late 34 - 40:" + get_pc_extra_stat(34) + " " + get_pc_extra_stat(35) + " " + get_pc_extra_stat(36)
-   + " " + get_pc_extra_stat(37) + " " + get_pc_extra_stat(38) + " " + get_pc_extra_stat(39) + " " + get_pc_extra_stat(40));*/
-
-  // display_msg ("loaded late 31=arg[0-6]: " + get_pc_extra_stat(31));
-  // display_msg ("loaded 32marked=arg[0-6]: " + get_pc_extra_stat(32));
-
-  /* display_msg ("3a:  " + get_pc_base_stat(0) + " " + get_pc_base_stat(1) + " "+ get_pc_base_stat(2) + " "+ get_pc_base_stat(3) + " "
-   + get_pc_base_stat(4) + " " + get_pc_base_stat(5) + " " + get_pc_base_stat(6));
-   display_msg("3b: " + get_critter_stat(dude_obj,0) + " " + get_critter_base_stat(dude_obj,1) + " " + get_critter_base_stat(dude_obj,2) + " " + get_critter_base_stat(dude_obj,3) +
-   " " + get_critter_base_stat(dude_obj, 4) + " " + get_critter_base_stat(dude_obj, 5) + " " + get_critter_base_stat(dude_obj, 6));
-*/
+   if (LVar31 > 10) then begin
+      LVar31 := 10;
+   end
+   if (LVar31 < 1) then begin
+      LVar31 := 1;
+   end
+   if (LVar32 > 10) then begin
+      LVar32 := 10;
+   end
+   if (LVar32 < 1) then begin
+      LVar32 := 1;
+   end
+   if (LVar33 > 10) then begin
+      LVar33 := 10;
+   end
+   if (LVar33 < 1) then begin
+      LVar33 := 1;
+   end
+   if (LVar34 > 10) then begin
+      LVar34 := 10;
+   end
+   if (LVar34 < 1) then begin
+      LVar34 := 1;
+   end
+   set_pc_base_stat(0, LVar28);
+   set_pc_base_stat(1, LVar29);
+   set_pc_base_stat(2, LVar30);
+   set_pc_base_stat(3, LVar31);
+   set_pc_base_stat(4, LVar32);
+   set_pc_base_stat(5, LVar33);
+   set_pc_base_stat(6, LVar34);
+   LVar35 := ((arg0 + 1) * 1000000) - 1000000 + ((arg1 + 1) * 100000) - 100000 + ((arg2 + 1) * 10000) - 10000 + ((arg3 + 1) * 1000) - 1000 + ((arg4 + 1) * 100) - 100 + ((arg5 + 1) * 10) - 10 + ((arg6 + 1) * 1) - 1;
+   LVar36 := ((LVar7 + 1) * 1000000) - 1000000 + ((LVar8 + 1) * 100000) - 100000 + ((LVar9 + 1) * 10000) - 10000 + ((LVar10 + 1) * 1000) - 1000 + ((LVar11 + 1) * 100) - 100 + ((LVar12 + 1) * 10) - 10 + ((LVar13 + 1) * 1) - 1;
+   set_global_var(794, LVar35);
+   set_global_var(795, LVar36);
 end
 
